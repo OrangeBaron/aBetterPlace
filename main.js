@@ -15,6 +15,11 @@
         }
     };
 
+    // --- Controllo Aggiornamenti ---
+    if (window.aBetterPlace.Updater) {
+        window.aBetterPlace.Updater.check();
+    }
+
     // Creiamo la versione debounced: aspetta 150ms
     const safeUpdate = window.aBetterPlace.Utils.debounce(performUpdates, 150);
 

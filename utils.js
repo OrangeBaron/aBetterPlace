@@ -104,10 +104,10 @@ window.aBetterPlace.Utils = {
         }
     },
 
-    // --- 4. UI: Componenti visivi (Toast, etc) ---
+    // --- 4. UI: Componenti visivi ---
 
     UI: {
-        showToast: function(title, message, titleColor = '#26affb') {
+        showToast: function(title, message, titleColor = '#26affb', timeout = 1500) {
             const id = 'better-toast';
             const oldToast = document.getElementById(id);
             if (oldToast) oldToast.remove();
@@ -115,7 +115,7 @@ window.aBetterPlace.Utils = {
             const toast = document.createElement('div');
             toast.id = id;
             
-            // Stili inline definiti qui per pulizia
+            // Stili inline
             const styles = {
                 position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)',
                 backgroundColor: 'rgba(50, 50, 50, 0.95)', color: '#fff',
@@ -136,7 +136,7 @@ window.aBetterPlace.Utils = {
             setTimeout(() => {
                 toast.style.opacity = '0';
                 setTimeout(() => { if (toast.parentNode) toast.remove(); }, 300);
-            }, 1500);
+            }, timeout);
         }
     }
 };

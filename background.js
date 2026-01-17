@@ -1,7 +1,7 @@
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete' && tab.url) {
 
-        const targetDomain = atob("cmFpcGxhY2UucmFpLml0");
+        const targetDomain = atob("cmFpcGVybWUuaW50cmFuZXQucmFpLml0");
 
         if (tab.url.includes(targetDomain)) {
             
@@ -13,6 +13,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                     "dialog-handler.js",
                     "layout-handler.js",
                     "date-nav.js",
+                    "updater.js",
                     "main.js"
                 ]
             })
