@@ -3,12 +3,8 @@
         "id": 1,
         "priority": 1,
         "action": { "type": "block" },
-        "condition": { 
-            "regexFilter": ".*My.*ChatBot.*", 
-            "resourceTypes": ["script"] 
-        }
+        "condition": { "regexFilter": ".*My.*ChatBot.*", "resourceTypes": ["script"] }
     },
-    
     
     
     {
@@ -47,8 +43,6 @@
         "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff" } },
         "condition": { "regexFilter": ".*glyphicons-halflings-regular\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
     },
-
-    
     
     
     {
@@ -63,7 +57,6 @@
         "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-400-normal.woff" } },
         "condition": { "regexFilter": ".*open-sans.*regular\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
     },
-    
     {
         "id": 50,
         "priority": 1,
@@ -76,8 +69,6 @@
         "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-400-italic.woff" } },
         "condition": { "regexFilter": ".*open-sans.*italic\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
     },
-
-    
     {
         "id": 42,
         "priority": 1,
@@ -90,7 +81,6 @@
         "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-300-normal.woff" } },
         "condition": { "regexFilter": ".*open-sans.*300\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
     },
-    
     {
         "id": 52,
         "priority": 1,
@@ -103,8 +93,6 @@
         "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-300-italic.woff" } },
         "condition": { "regexFilter": ".*open-sans.*300.*italic\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
     },
-
-    
     {
         "id": 44,
         "priority": 1,
@@ -117,15 +105,12 @@
         "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-600-normal.woff" } },
         "condition": { "regexFilter": ".*open-sans.*600\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
     },
-    
     {
         "id": 54,
         "priority": 1,
         "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-600-italic.woff2" } },
         "condition": { "regexFilter": ".*open-sans.*600.*italic\\.woff2.*", "resourceTypes": ["font", "other"] }
     },
-
-    
     {
         "id": 46,
         "priority": 1,
@@ -138,11 +123,44 @@
         "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-700-normal.woff" } },
         "condition": { "regexFilter": ".*open-sans.*700\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
     },
-    
     {
         "id": 55,
         "priority": 1,
         "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-700-italic.woff2" } },
         "condition": { "regexFilter": ".*open-sans.*700.*italic\\.woff2.*", "resourceTypes": ["font", "other"] }
+    },
+
+    
+    
+    
+    {
+        "id": 60,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js" } },
+        "condition": { "regexFilter": ".*intro\\.js.*", "resourceTypes": ["script"] }
+    },
+    {
+        "id": 61,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" } },
+        "condition": { "regexFilter": ".*jquery\\.form\\.js.*", "resourceTypes": ["script"] }
+    },
+    {
+        "id": 62,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" } },
+        "condition": { "regexFilter": ".*jquery\\.validate\\.js.*", "resourceTypes": ["script"] }
+    },
+    {
+        "id": 63,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.js" } },
+        "condition": { "regexFilter": ".*summernote\\.js.*", "resourceTypes": ["script"] }
+    },
+    {
+        "id": 64,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.4/chartist.min.js" } },
+        "condition": { "regexFilter": ".*chartist.*\\.js.*", "resourceTypes": ["script"] }
     }
 ]
