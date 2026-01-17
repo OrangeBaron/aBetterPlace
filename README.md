@@ -31,4 +31,6 @@ L'autore fornisce questo software "così com'è", senza alcuna garanzia. Utilizz
 - **È tua responsabilità** verificare che le richieste (ferie, permessi, presenze) siano state salvate correttamente dal sistema dopo l'inserimento.
 - In caso di aggiornamenti del portale aziendale, l'estensione potrebbe smettere di funzionare improvvisamente.
 
+**Importante:** Questo software ha il solo scopo di migliorare l'usabilità dell'interfaccia. **Non è inteso, non serve e non deve essere modificato** per alterare le logiche e le funzionalità dell'intranet in violazione delle policy aziendali o per aggirare controlli amministrativi.
+
 Se noti comportamenti strani o errori, disattiva immediatamente l'estensione e, possibilmente, avvisami del problema.
