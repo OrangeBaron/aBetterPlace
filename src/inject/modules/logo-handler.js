@@ -9,7 +9,7 @@ window.aBetterPlace.LogoHandler = {
         if (!img || img.src.includes('chrome-extension://')) return;
 
         // Recuperiamo l'URL del nuovo logo interno all'estensione
-        const newLogoUrl = chrome.runtime.getURL('logo.png');
+        const newLogoUrl = chrome.runtime.getURL('assets/logo.png');
 
         // 1. Sostituiamo la sorgente
         img.src = newLogoUrl;
