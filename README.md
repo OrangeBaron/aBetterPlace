@@ -12,6 +12,10 @@
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
 - Previene il crash della pagina in caso di errori del server.
 
+## 🔮 Funzionalità future
+- Auto-assegnazione delle attività alle maggiorazioni.
+- Calcolo della flessibilità oraria totale usata/rimanente.
+
 ## 📦 Installazione
 
 1. [Scarica questo repository](https://github.com/OrangeBaron/aBetterPlace/archive/refs/heads/main.zip) ed estrai la cartella sul tuo computer.
