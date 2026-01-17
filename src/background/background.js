@@ -7,7 +7,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             
             chrome.scripting.executeScript({
                 target: { tabId: tabId },
-                files: ["patch.js"],
+                files: ["src/inject/patch.js"],
                 world: "MAIN" 
             })
             .then(() => console.log("Patch injected."))
@@ -16,14 +16,14 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             chrome.scripting.executeScript({
                 target: { tabId: tabId },
                 files: [
-                    "utils.js",
-                    "form-handler.js",
-                    "dialog-handler.js",
-                    "layout-handler.js",
-                    "date-nav.js",
-                    "updater.js",
-                    "logo-handler.js",
-                    "main.js"
+                    "src/inject/utils.js",
+                    "src/inject/modules/form-handler.js",
+                    "src/inject/modules/dialog-handler.js",
+                    "src/inject/modules/layout-handler.js",
+                    "src/inject/modules/date-nav.js",
+                    "src/inject/updater.js",
+                    "src/inject/modules/logo-handler.js",
+                    "src/inject/main.js"
                 ]
             })
             .then(() => console.log("System injected."))
