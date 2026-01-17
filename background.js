@@ -7,6 +7,14 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             
             chrome.scripting.executeScript({
                 target: { tabId: tabId },
+                files: ["patch.js"],
+                world: "MAIN" 
+            })
+            .then(() => console.log("Patch injected."))
+            .catch(err => console.error("Patch injection failed:", err));
+
+            chrome.scripting.executeScript({
+                target: { tabId: tabId },
                 files: [
                     "utils.js",
                     "form-handler.js",
@@ -19,7 +27,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                 ]
             })
             .then(() => console.log("System injected."))
-            .catch(err => console.error("Injection failed:", err));
+            .catch(err => console.error("System injection failed:", err));
         }
     }
 });

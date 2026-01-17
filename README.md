@@ -10,6 +10,7 @@
 - Seleziona automaticamente le maggiorazioni proposte.
 - Riattiva lo scroll della pagina dopo aver chiuso il form di gestione presenze.
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
+- Previene il crash della pagina in caso di errori del server.
 
 ## 📦 Installazione
 

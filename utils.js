@@ -117,7 +117,7 @@ window.aBetterPlace.Utils = {
         }
     },
 
-    // --- 4. UI: Componenti visivi (Toast) ---
+    // --- 4. UI: Componenti visivi ---
 
     UI: {
         showToast: function(title, message, titleColor = '#26affb', timeout = 1500) {
