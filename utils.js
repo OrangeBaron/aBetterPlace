@@ -122,7 +122,7 @@ window.aBetterPlace.Utils = {
                 padding: '12px 24px', borderRadius: '8px',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.3)', zIndex: '99999',
                 fontFamily: 'Segoe UI, sans-serif', fontSize: '14px',
-                textAlign: 'center', minWidth: '300px', pointerEvents: 'none',
+                textAlign: 'center', minWidth: '300px', pointerEvents: 'auto',
                 transition: 'opacity 0.3s ease'
             };
             Object.assign(toast.style, styles);
