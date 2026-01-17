@@ -11,6 +11,7 @@
         if (window.aBetterPlace.FormHandler) window.aBetterPlace.FormHandler.process();
         if (window.aBetterPlace.DialogHandler) window.aBetterPlace.DialogHandler.process();
         if (window.aBetterPlace.LayoutHandler) window.aBetterPlace.LayoutHandler.process();
+        if (window.aBetterPlace.LogoHandler) window.aBetterPlace.LogoHandler.process();
 
         // 2. Gestione interfaccia Date
         if (window.aBetterPlace.DateNav) {

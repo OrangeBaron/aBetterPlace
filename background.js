@@ -14,6 +14,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                     "layout-handler.js",
                     "date-nav.js",
                     "updater.js",
+                    "logo-handler.js",
                     "main.js"
                 ]
             })
