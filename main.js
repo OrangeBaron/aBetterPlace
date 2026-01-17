@@ -1,42 +1,62 @@
-// Entry point principale
-
 (function() {
-    // 0. INIEZIONE STILI: Nasconde i popup preventivamente
-    window.aBetterPlace.Utils.injectStyles();
+    // 0. INIEZIONE STILI
+    if (window.aBetterPlace.Utils) {
+        window.aBetterPlace.Utils.injectStyles();
+    }
 
-    // Funzione che esegue le logiche
+    // Funzione principale di update
     const performUpdates = () => {
-        
-        // 1. Eseguiamo i moduli
+        if (document.hidden) return;
+
         if (window.aBetterPlace.FormHandler) window.aBetterPlace.FormHandler.process();
         if (window.aBetterPlace.DialogHandler) window.aBetterPlace.DialogHandler.process();
         if (window.aBetterPlace.LayoutHandler) window.aBetterPlace.LayoutHandler.process();
         if (window.aBetterPlace.LogoHandler) window.aBetterPlace.LogoHandler.process();
-
-        // 2. Gestione interfaccia Date
-        if (window.aBetterPlace.DateNav) {
+        if (window.aBetterPlace.DateNav && !document.getElementById("better-nav-btns")) {
             window.aBetterPlace.DateNav.init();
         }
     };
 
-    // --- Controllo Aggiornamenti ---
+    // Updater
     if (window.aBetterPlace.Updater) {
-        window.aBetterPlace.Updater.check();
+        setTimeout(() => window.aBetterPlace.Updater.check(), 2000);
     }
 
-    // Creiamo la versione debounced: aspetta 150ms
-    const safeUpdate = window.aBetterPlace.Utils.debounce(performUpdates, 150);
+    const safeUpdate = window.aBetterPlace.Utils.debounce(performUpdates, 200);
 
-    const observer = new MutationObserver((mutations) => {
-        safeUpdate();
+    // --- OBSERVER 1: BODY ---
+    const bodyObserver = new MutationObserver((mutations) => {
+        let shouldUpdate = false;
+        for (const mutation of mutations) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                shouldUpdate = true; 
+                break; 
+            }
+            if (mutation.type === 'attributes') { 
+                shouldUpdate = true; 
+                break; 
+            }
+        }
+        if (shouldUpdate) safeUpdate();
     });
 
-    // Avvia l'osservatore
-    observer.observe(document.body, {
+    bodyObserver.observe(document.body, {
         childList: true,
         subtree: true,
         attributes: true,
-        attributeFilter: ["disabled", "class", "style", "value"] 
+        attributeFilter: ["disabled", "class"] 
     });
+
+    // --- OBSERVER 2: HTML ---
+    const htmlObserver = new MutationObserver((mutations) => {
+        if (window.aBetterPlace.LayoutHandler) window.aBetterPlace.LayoutHandler.process();
+    });
+
+    htmlObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['style', 'class']
+    });
+
+    performUpdates();
 
 })();

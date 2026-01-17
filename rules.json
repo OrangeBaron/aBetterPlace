@@ -1,0 +1,148 @@
+[
+    {
+        "id": 1,
+        "priority": 1,
+        "action": { "type": "block" },
+        "condition": { 
+            "regexFilter": ".*My.*ChatBot.*", 
+            "resourceTypes": ["script"] 
+        }
+    },
+    
+    
+    
+    {
+        "id": 10,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2" } },
+        "condition": { "regexFilter": ".*fontawesome-webfont\\.woff2.*", "resourceTypes": ["font", "other"] }
+    },
+    {
+        "id": 11,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff" } },
+        "condition": { "regexFilter": ".*fontawesome-webfont\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
+    },
+    {
+        "id": 20,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/fonts/Simple-Line-Icons.ttf" } },
+        "condition": { "regexFilter": ".*Simple-Line-Icons\\.ttf.*", "resourceTypes": ["font", "other"] }
+    },
+    {
+        "id": 30,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@icon/themify-icons@1.0.1-alpha.3/themify-icons.woff" } },
+        "condition": { "regexFilter": ".*themify\\.woff.*", "resourceTypes": ["font", "other"] }
+    },
+    {
+        "id": 35,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff2" } },
+        "condition": { "regexFilter": ".*glyphicons-halflings-regular\\.woff2.*", "resourceTypes": ["font", "other"] }
+    },
+    {
+        "id": 36,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff" } },
+        "condition": { "regexFilter": ".*glyphicons-halflings-regular\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
+    },
+
+    
+    
+    
+    {
+        "id": 40,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-400-normal.woff2" } },
+        "condition": { "regexFilter": ".*open-sans.*regular\\.woff2.*", "resourceTypes": ["font", "other"] }
+    },
+    {
+        "id": 41,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-400-normal.woff" } },
+        "condition": { "regexFilter": ".*open-sans.*regular\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
+    },
+    
+    {
+        "id": 50,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-400-italic.woff2" } },
+        "condition": { "regexFilter": ".*open-sans.*italic\\.woff2.*", "resourceTypes": ["font", "other"] }
+    },
+    {
+        "id": 51,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-400-italic.woff" } },
+        "condition": { "regexFilter": ".*open-sans.*italic\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
+    },
+
+    
+    {
+        "id": 42,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-300-normal.woff2" } },
+        "condition": { "regexFilter": ".*open-sans.*300\\.woff2.*", "resourceTypes": ["font", "other"] }
+    },
+    {
+        "id": 43,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-300-normal.woff" } },
+        "condition": { "regexFilter": ".*open-sans.*300\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
+    },
+    
+    {
+        "id": 52,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-300-italic.woff2" } },
+        "condition": { "regexFilter": ".*open-sans.*300.*italic\\.woff2.*", "resourceTypes": ["font", "other"] }
+    },
+    {
+        "id": 53,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-300-italic.woff" } },
+        "condition": { "regexFilter": ".*open-sans.*300.*italic\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
+    },
+
+    
+    {
+        "id": 44,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-600-normal.woff2" } },
+        "condition": { "regexFilter": ".*open-sans.*600\\.woff2.*", "resourceTypes": ["font", "other"] }
+    },
+    {
+        "id": 45,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-600-normal.woff" } },
+        "condition": { "regexFilter": ".*open-sans.*600\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
+    },
+    
+    {
+        "id": 54,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-600-italic.woff2" } },
+        "condition": { "regexFilter": ".*open-sans.*600.*italic\\.woff2.*", "resourceTypes": ["font", "other"] }
+    },
+
+    
+    {
+        "id": 46,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-700-normal.woff2" } },
+        "condition": { "regexFilter": ".*open-sans.*700\\.woff2.*", "resourceTypes": ["font", "other"] }
+    },
+    {
+        "id": 47,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-700-normal.woff" } },
+        "condition": { "regexFilter": ".*open-sans.*700\\.woff(\\?.*)?$", "resourceTypes": ["font", "other"] }
+    },
+    
+    {
+        "id": 55,
+        "priority": 1,
+        "action": { "type": "redirect", "redirect": { "url": "https://cdn.jsdelivr.net/npm/@fontsource/open-sans@4.5.0/files/open-sans-latin-700-italic.woff2" } },
+        "condition": { "regexFilter": ".*open-sans.*700.*italic\\.woff2.*", "resourceTypes": ["font", "other"] }
+    }
+]

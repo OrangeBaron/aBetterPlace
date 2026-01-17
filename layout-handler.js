@@ -4,17 +4,27 @@ window.aBetterPlace.LayoutHandler = {
     process: function() {
         const html = document.documentElement;
         
-        // Controllo rapido per evitare reflow
-        if (html.style.overflowY === 'hidden' || getComputedStyle(html).overflowY === 'hidden') {
-            const formInserimento = document.getElementById('form-inserimento');
-            // Verifica se c'è una modale di inserimento attiva (in quel caso non toccare lo scroll)
-            const isModalVisible = formInserimento && formInserimento.offsetParent !== null;
+        // 1. Verifica se c'è una modale aperta
+        const isSwalOpen = document.querySelector('.swal2-modal.swal2-show');
+        const isBootstrapOpen = document.body.classList.contains('modal-open');
+        
+        if (isSwalOpen || isBootstrapOpen) return;
 
-            if (!isModalVisible) {
-                html.style.setProperty('overflow-y', 'auto', 'important');
-                html.style.setProperty('overflow', 'visible', 'important');
-                document.body.style.setProperty('overflow-y', 'auto', 'important');
+        // 2. Se non ci sono popup
+        if (html.style.overflowY === 'hidden' || html.style.overflow === 'hidden') {
+            
+            // Rimuoviamo la proprietà che blocca
+            html.style.removeProperty('overflow');
+            html.style.removeProperty('overflow-y');
+            
+            // Rimuoviamo il padding che i framework aggiungono per compensare la scrollbar
+            if (html.style.paddingRight) {
+                html.style.removeProperty('padding-right');
             }
+
+            // Forziamo lo sblocco se la rimozione non basta
+            html.style.setProperty('overflow-y', 'auto', 'important');
+            html.style.setProperty('overflow', 'visible', 'important');
         }
     }
 };

@@ -9,24 +9,25 @@
 - Sostituisce i popup di notifica ed errore con dei toast meno invasivi.
 - Seleziona automaticamente le maggiorazioni proposte.
 - Riattiva lo scroll della pagina dopo aver chiuso il form di gestione presenze.
+- Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
 
 ## 📦 Installazione
 
-1.  [Scarica questo repository](https://github.com/OrangeBaron/aBetterPlace/archive/refs/heads/main.zip) ed estrai la cartella sul tuo computer.
-2.  Apri Chrome e vai all'indirizzo `chrome://extensions/`.
-3.  Attiva l'interruttore **Modalità sviluppatore** (in alto a destra).
-4.  Clicca sul pulsante **Carica estensione non pacchettizzata**.
-5.  Seleziona la cartella che hai estratto al punto 1.
-6.  Fatto!
+1. [Scarica questo repository](https://github.com/OrangeBaron/aBetterPlace/archive/refs/heads/main.zip) ed estrai la cartella sul tuo computer.
+2. Apri Chrome e vai all'indirizzo `chrome://extensions/`.
+3. Attiva l'interruttore **Modalità sviluppatore** (in alto a destra).
+4. Clicca sul pulsante **Carica estensione non pacchettizzata**.
+5. Seleziona la cartella che hai estratto al punto 1.
+6. Fatto!
 
 ## ⚠️ Disclaimer
 
 **a Better Place** è un progetto personale e non ufficiale. Non è sviluppato, mantenuto o supportato dall'azienda o dal reparto IT.
 
 L'autore fornisce questo software "così com'è", senza alcuna garanzia. Utilizzando questa estensione accetti che:
--  **L'uso è a tuo completo rischio e pericolo.**
--  **L'autore non è responsabile** per eventuali errori nell'inserimento dati, anomalie nella visualizzazione o malfunzionamenti del portale causati dall'estensione.
--  **È tua responsabilità** verificare che le richieste (ferie, permessi, presenze) siano state salvate correttamente dal sistema dopo l'inserimento.
--  In caso di aggiornamenti del portale aziendale, l'estensione potrebbe smettere di funzionare improvvisamente.
+- **L'uso è a tuo completo rischio e pericolo.**
+- **L'autore non è responsabile** per eventuali errori nell'inserimento dati, anomalie nella visualizzazione o malfunzionamenti del portale causati dall'estensione.
+- **È tua responsabilità** verificare che le richieste (ferie, permessi, presenze) siano state salvate correttamente dal sistema dopo l'inserimento.
+- In caso di aggiornamenti del portale aziendale, l'estensione potrebbe smettere di funzionare improvvisamente.
 
 Se noti comportamenti strani o errori, disattiva immediatamente l'estensione e, possibilmente, avvisami del problema.

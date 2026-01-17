@@ -18,6 +18,9 @@ window.aBetterPlace.Utils = {
                 visibility: visible !important;
                 opacity: 1 !important;
             }
+            html:not(.swal2-shown):not(.modal-open) {
+                overflow-y: auto !important;
+            }
         `;
         document.head.appendChild(style);
     },
@@ -41,7 +44,6 @@ window.aBetterPlace.Utils = {
     DOM: {
         /**
          * Rimuove attributi disabled e classi di blocco da un elemento.
-         * @param {HTMLElement} element 
          */
         unlock: function(element) {
             if (!element) return false;
@@ -86,18 +88,12 @@ window.aBetterPlace.Utils = {
     // --- 3. DATE: Gestione e formattazione date ---
 
     Date: {
-        /**
-         * Parsa una data dd/mm/yyyy
-         */
         parse: function(dateString) {
             const parts = dateString.split('/');
             if (parts.length !== 3) return null;
             return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
         },
 
-        /**
-         * Formatta una data in dd/mm/yyyy
-         */
         format: function(dateObj) {
             const y = dateObj.getFullYear();
             const m = String(dateObj.getMonth() + 1).padStart(2, '0');
@@ -105,9 +101,6 @@ window.aBetterPlace.Utils = {
             return `${d}/${m}/${y}`;
         },
 
-        /**
-         * Aggiorna il valore di un input date aggiungendo/togliendo giorni
-         */
         updateInput: function(inputElement, offset) {
             if (!inputElement) return;
 
@@ -119,13 +112,12 @@ window.aBetterPlace.Utils = {
 
             if (inputElement.value !== nuovaData) {
                 inputElement.value = nuovaData;
-                // Usa l'helper DOM per notificare il cambiamento
                 window.aBetterPlace.Utils.DOM.triggerChange(inputElement);
             }
         }
     },
 
-    // --- 4. UI: Componenti visivi ---
+    // --- 4. UI: Componenti visivi (Toast) ---
 
     UI: {
         showToast: function(title, message, titleColor = '#26affb', timeout = 1500) {
