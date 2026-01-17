@@ -1,6 +1,9 @@
 // Entry point principale
 
 (function() {
+    // 0. INIEZIONE STILI: Nasconde i popup preventivamente
+    window.aBetterPlace.Utils.injectStyles();
+
     // Funzione che esegue le logiche
     const performUpdates = () => {
         

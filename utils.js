@@ -1,6 +1,27 @@
 window.aBetterPlace = window.aBetterPlace || {};
 
 window.aBetterPlace.Utils = {
+    // --- 0. CSS: Iniezione stili globali ---
+
+    injectStyles: function() {
+        if (document.getElementById('abp-styles')) return;
+        
+        const style = document.createElement('style');
+        style.id = 'abp-styles';
+        style.textContent = `
+            .swal2-container {
+                visibility: hidden !important;
+                opacity: 0 !important;
+                transition: opacity 0.1s ease-in-out !important;
+            }
+            .swal2-container.abp-allowed {
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+        `;
+        document.head.appendChild(style);
+    },
+
     // --- 1. CORE: Funzioni generiche di utilità ---
     
     /**
