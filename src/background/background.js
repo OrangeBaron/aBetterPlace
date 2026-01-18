@@ -1,3 +1,14 @@
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.storage.sync.get({ privacyMode: false }, (items) => {
+        const ruleId = 'network_rules';
+        if (items.privacyMode) {
+            chrome.declarativeNetRequest.updateEnabledRulesets({ disableRulesetIds: [ruleId] });
+        } else {
+            chrome.declarativeNetRequest.updateEnabledRulesets({ enableRulesetIds: [ruleId] });
+        }
+    });
+});
+
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete' && tab.url) {
 
