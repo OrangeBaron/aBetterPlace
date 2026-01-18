@@ -13,6 +13,8 @@
                 
         if (window.aBetterPlace.LayoutHandler) window.aBetterPlace.LayoutHandler.process();
         if (window.aBetterPlace.LogoHandler) window.aBetterPlace.LogoHandler.process(globalOptions);
+
+        if (window.aBetterPlace.BookmarkHandler) window.aBetterPlace.BookmarkHandler.process();
         
         if (window.aBetterPlace.DateNav && !document.getElementById("better-nav-btns")) {
             window.aBetterPlace.DateNav.init();

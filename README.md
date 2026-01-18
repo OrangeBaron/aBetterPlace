@@ -8,9 +8,10 @@
 - Rimuove il secondo campo della data e il bottone "vai" (inutili) e aggiunge al loro posto due bottoni per muoversi al giorno precedente/successivo.
 - Sostituisce i popup di notifica ed errore con dei toast meno invasivi.
 - Seleziona automaticamente le maggiorazioni proposte.
-- Rimuove le animazioni al pannello di gestione delle presenze e riattiva lo scroll della pagina dopo averlo chiuso.
+- Rimuove le animazioni del pannello di gestione delle presenze e ripristina lo scroll della pagina dopo averlo chiuso.
+- Corregge i collegamenti non funzionanti dei segnalibri.
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
-- Previene il crash della pagina in caso di errori del server.
+- Previene il blocco della pagina intercettando gli errori di esecuzione negli script del portale.
 
 È possibile personalizzare il comportamento dell'estensione accedendo al pannello delle **Opzioni** (tasto destro sull'icona dell'estensione > Opzioni).
 
