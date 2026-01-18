@@ -4,29 +4,36 @@ window.aBetterPlace.Updater = {
     // Configurazione
     repoUrl: 'https://raw.githubusercontent.com/OrangeBaron/aBetterPlace/main/manifest.json',
     
-    check: async function() {
-        try {
-            // 1. Recupera la versione locale
-            const localManifest = chrome.runtime.getManifest();
-            const localVersion = localManifest.version;
-
-            // 2. Recupera la versione remota
-            const response = await fetch(this.repoUrl);
-            if (!response.ok) return;
+    check: function() {
+        // Recuperiamo la preferenza utente (Default: true)
+        chrome.storage.sync.get({ checkUpdates: true }, async (items) => {
             
-            const remoteManifest = await response.json();
-            const remoteVersion = remoteManifest.version;
+            // Se l'utente ha disabilitato gli aggiornamenti automatici, usciamo subito.
+            if (!items.checkUpdates) return;
 
-            // 3. Confronta
-            if (this.isNewer(remoteVersion, localVersion)) {
-                this.notifyUpdate(remoteVersion);
-            } else {
-                console.log(`aBetterPlace è aggiornato (v${localVersion})`);
+            try {
+                // 1. Recupera la versione locale
+                const localManifest = chrome.runtime.getManifest();
+                const localVersion = localManifest.version;
+
+                // 2. Recupera la versione remota
+                const response = await fetch(this.repoUrl);
+                if (!response.ok) return;
+                
+                const remoteManifest = await response.json();
+                const remoteVersion = remoteManifest.version;
+
+                // 3. Confronta
+                if (this.isNewer(remoteVersion, localVersion)) {
+                    this.notifyUpdate(remoteVersion);
+                } else {
+                    console.log(`aBetterPlace è aggiornato (v${localVersion})`);
+                }
+
+            } catch (error) {
+                console.warn('Impossibile verificare aggiornamenti:', error);
             }
-
-        } catch (error) {
-            console.warn('Impossibile verificare aggiornamenti:', error);
-        }
+        });
     },
 
     /**
@@ -51,7 +58,7 @@ window.aBetterPlace.Updater = {
                      <a href="https://github.com/OrangeBaron/aBetterPlace/archive/refs/heads/main.zip" target="_blank" style="color: #fff; text-decoration: underline;">Clicca qui per scaricarla</a>.`;
         
         if (window.aBetterPlace.Utils && window.aBetterPlace.Utils.UI) {
-            window.aBetterPlace.Utils.UI.showToast("Aggiornamento", msg, "#28a745", 3000);
+            window.aBetterPlace.Utils.UI.showToast("Aggiornamento", msg, "#28a745", 5000);
         }
     }
 };
