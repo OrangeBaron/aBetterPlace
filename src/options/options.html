@@ -16,25 +16,89 @@
         input[type="checkbox"] { margin-right: 10px; margin-top: 3px; }
         .desc { font-size: 13px; color: #666; margin-top: 4px; line-height: 1.4; }
         .status { margin-top: 20px; font-size: 12px; color: green; opacity: 0; transition: opacity 0.5s; }
+        
+        /* Stili per l'area aggiornamenti */
+        .update-box {
+            display: none;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .update-msg {
+            font-size: 13px;
+            color: green;
+            margin-bottom: 8px;
+        }
+        .download-btn {
+            display: inline-block;
+            background-color: #26affb;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .download-btn:hover { background-color: #1a8ccb; }
     </style>
 </head>
 <body>
     <h2>Impostazioni</h2>
     
     <div class="option-group">
-        <label>
+        <label style="margin-bottom: 15px;">
             <input type="checkbox" id="privacy-mode">
             <div>
-                <strong>Modalità Privacy (Network Aziendale)</strong>
+                <strong>Modalità Privacy (network aziendale)</strong>
                 <div class="desc">
                     Disabilita il caricamento di font e librerie da server esterni (CDN). 
                     Attiva questa opzione se sei su una rete chiusa o vuoi evitare connessioni verso internet.
                 </div>
             </div>
         </label>
+
+        <label style="margin-bottom: 15px;">
+            <input type="checkbox" id="toast-notifications">
+            <div>
+                <strong>Usa notifiche non invasive (toast)</strong>
+                <div class="desc">
+                    Sostituisce i popup di errore e conferma con notifiche a scomparsa in basso, evitando di dover cliccare "OK" ogni volta.
+                </div>
+            </div>
+        </label>
+
+        <label style="margin-bottom: 15px;">
+            <input type="checkbox" id="custom-logo">
+            <div>
+                <strong>Sostituisci il logo aziendale</strong>
+                <div class="desc">
+                    Mostra il logo "a Better Place" al posto di quello standard nell'intestazione della pagina.
+                </div>
+            </div>
+        </label>
+
+        <label>
+            <input type="checkbox" id="check-updates">
+            <div>
+                <strong>Notifica disponibilità aggiornamento</strong>
+                <div class="desc">
+                    Controlla automaticamente e ti avvisa se è disponibile una nuova versione dell'estensione.
+                </div>
+            </div>
+        </label>
     </div>
 
     <div id="status" class="status">Impostazioni salvate.</div>
+
+    <div id="update-area" class="update-box">
+        <div class="update-msg">
+            È disponibile una nuova versione: <strong id="new-version"></strong>
+        </div>
+        <a href="https://github.com/OrangeBaron/aBetterPlace/archive/refs/heads/main.zip" class="download-btn">
+            Scarica l'aggiornamento
+        </a>
+    </div>
 
     <script src="options.js"></script>
 </body>

@@ -1,50 +1,109 @@
+// --- LOGICA OPZIONI ---
+
 // Salva le opzioni su chrome.storage
 const saveOptions = () => {
     const privacyMode = document.getElementById('privacy-mode').checked;
+    const toastNotifications = document.getElementById('toast-notifications').checked;
+    const customLogo = document.getElementById('custom-logo').checked;
+    const checkUpdates = document.getElementById('check-updates').checked;
   
     chrome.storage.sync.set(
-      { privacyMode: privacyMode },
+      { 
+        privacyMode,
+        toastNotifications,
+        customLogo,
+        checkUpdates
+      },
       () => {
-        // Aggiorna visivamente lo stato di salvataggio
         const status = document.getElementById('status');
         status.style.opacity = '1';
         setTimeout(() => { status.style.opacity = '0'; }, 1500);
 
-        // Applica immediatamente la logica dei ruleset
         updateRulesetState(privacyMode);
       }
     );
-  };
+};
   
-  // Ripristina lo stato della checkbox usando le preferenze salvate
-  const restoreOptions = () => {
+// Ripristina lo stato delle checkbox
+const restoreOptions = () => {
     chrome.storage.sync.get(
-      { privacyMode: false }, // Default: Privacy Mode spenta (CDN attive)
+      { 
+        privacyMode: false, 
+        toastNotifications: true,
+        customLogo: true,
+        checkUpdates: true
+      }, 
       (items) => {
         document.getElementById('privacy-mode').checked = items.privacyMode;
+        document.getElementById('toast-notifications').checked = items.toastNotifications;
+        document.getElementById('custom-logo').checked = items.customLogo;
+        document.getElementById('check-updates').checked = items.checkUpdates;
       }
     );
-  };
+};
 
-  // Funzione Core: Abilita/Disabilita le regole di rete
-  const updateRulesetState = (isPrivacyMode) => {
-      // L'ID 'network_rules' deve corrispondere a quello nel manifest.json
-      const ruleId = 'network_rules'; 
-      
-      if (isPrivacyMode) {
-          // Se Privacy Mode è ON -> DISABILITA le regole (niente redirect verso CDN)
-          chrome.declarativeNetRequest.updateEnabledRulesets({
-              disableRulesetIds: [ruleId]
-          });
-          console.log('aBetterPlace: Privacy Mode ON. Regole esterne disabilitate.');
-      } else {
-          // Se Privacy Mode è OFF -> ABILITA le regole (usa CDN veloci)
-          chrome.declarativeNetRequest.updateEnabledRulesets({
-              enableRulesetIds: [ruleId]
-          });
-          console.log('aBetterPlace: Privacy Mode OFF. Regole esterne abilitate.');
-      }
-  };
-  
-  document.addEventListener('DOMContentLoaded', restoreOptions);
-  document.getElementById('privacy-mode').addEventListener('change', saveOptions);
+const updateRulesetState = (isPrivacyMode) => {
+    const ruleId = 'network_rules'; 
+    if (isPrivacyMode) {
+        chrome.declarativeNetRequest.updateEnabledRulesets({ disableRulesetIds: [ruleId] });
+    } else {
+        chrome.declarativeNetRequest.updateEnabledRulesets({ enableRulesetIds: [ruleId] });
+    }
+};
+
+// --- LOGICA AGGIORNAMENTI ---
+
+const checkForUpdates = async () => {
+    const repoUrl = 'https://raw.githubusercontent.com/OrangeBaron/aBetterPlace/main/manifest.json';
+    
+    try {
+        const localVersion = chrome.runtime.getManifest().version;
+        
+        const response = await fetch(repoUrl);
+        if (!response.ok) return;
+        
+        const remoteManifest = await response.json();
+        const remoteVersion = remoteManifest.version;
+
+        // Se c'è una nuova versione, mostriamo il box
+        if (isNewer(remoteVersion, localVersion)) {
+            const updateArea = document.getElementById('update-area');
+            const versionSpan = document.getElementById('new-version');
+            
+            versionSpan.textContent = `v${remoteVersion}`;
+            updateArea.style.display = 'block';
+        }
+    } catch (error) {
+        console.warn('Check aggiornamenti fallito:', error);
+    }
+};
+
+/**
+ * Confronta versioni (Logica presa da updater.js)
+ * Ritorna true se remote > local
+ */
+const isNewer = (remote, local) => {
+    const rParts = remote.split('.').map(Number);
+    const lParts = local.split('.').map(Number);
+    
+    for (let i = 0; i < Math.max(rParts.length, lParts.length); i++) {
+        const r = rParts[i] || 0;
+        const l = lParts[i] || 0;
+        if (r > l) return true;
+        if (r < l) return false;
+    }
+    return false;
+};
+
+// --- INIT ---
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    restoreOptions();
+    checkForUpdates();
+});
+
+// Aggiungi listener per tutti gli input
+['privacy-mode', 'toast-notifications', 'custom-logo', 'check-updates'].forEach(id => {
+    document.getElementById(id).addEventListener('change', saveOptions);
+});
