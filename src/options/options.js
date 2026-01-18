@@ -28,7 +28,7 @@ const saveOptions = () => {
 const restoreOptions = () => {
     chrome.storage.sync.get(
       { 
-        privacyMode: false, 
+        privacyMode: false,
         toastNotifications: true,
         customLogo: true,
         checkUpdates: true
