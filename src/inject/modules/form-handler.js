@@ -16,12 +16,17 @@ window.aBetterPlace.FormHandler = {
             disabledButtons.forEach(btn => aBetterPlace.Utils.DOM.unlock(btn));
         }
 
-        // 3. Checkbox "Proposta"
-        const uncheckedProposte = document.querySelectorAll('input[name="CBproposta"]:not(:checked)');
-        if (uncheckedProposte.length > 0) {
-            uncheckedProposte.forEach(cb => {
-                cb.checked = true;
-                cb.dispatchEvent(new Event('change', { bubbles: true }));
+        // 3. Checkbox Proposta
+        const newProposte = document.querySelectorAll('input[name="CBproposta"]:not([data-abp-handled])');
+
+        if (newProposte.length > 0) {
+            newProposte.forEach(cb => {
+                if (!cb.checked) {
+                    cb.checked = true;
+                    cb.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+
+                cb.setAttribute('data-abp-handled', 'true');
             });
         }
     }
