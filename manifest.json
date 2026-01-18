@@ -1,12 +1,13 @@
 {
   "manifest_version": 3,
   "name": "a Better Place",
-  "version": "2.0.0",
+  "version": "2.1.0", 
   "description": "Migliora l'esperienza utente dell'intranet aziendale",
   "permissions": [
     "scripting",
     "tabs",
-    "declarativeNetRequest"
+    "declarativeNetRequest",
+    "storage" 
   ],
   "host_permissions": [
     "https://*.it/*",
@@ -14,6 +15,10 @@
     "https://cdnjs.cloudflare.com/*",
     "https://cdn.jsdelivr.net/*"
   ],
+  "options_ui": {
+    "page": "src/options/options.html",
+    "open_in_tab": false
+  },
   "background": {
     "service_worker": "src/background/background.js"
   },
