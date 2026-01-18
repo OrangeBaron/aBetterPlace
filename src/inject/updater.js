@@ -1,39 +1,36 @@
 window.aBetterPlace = window.aBetterPlace || {};
 
 window.aBetterPlace.Updater = {
-    // Configurazione
     repoUrl: 'https://raw.githubusercontent.com/OrangeBaron/aBetterPlace/main/manifest.json',
     
-    check: function() {
-        // Recuperiamo la preferenza utente (Default: true)
-        chrome.storage.sync.get({ checkUpdates: true }, async (items) => {
+    check: async function(options) {
+        const shouldCheck = options ? options.checkUpdates : true;
+
+        // Se l'utente ha disabilitato gli aggiornamenti, usciamo.
+        if (!shouldCheck) return;
+
+        try {
+            // 1. Recupera la versione locale
+            const localManifest = chrome.runtime.getManifest();
+            const localVersion = localManifest.version;
+
+            // 2. Recupera la versione remota
+            const response = await fetch(this.repoUrl);
+            if (!response.ok) return;
             
-            // Se l'utente ha disabilitato gli aggiornamenti automatici, usciamo subito.
-            if (!items.checkUpdates) return;
+            const remoteManifest = await response.json();
+            const remoteVersion = remoteManifest.version;
 
-            try {
-                // 1. Recupera la versione locale
-                const localManifest = chrome.runtime.getManifest();
-                const localVersion = localManifest.version;
-
-                // 2. Recupera la versione remota
-                const response = await fetch(this.repoUrl);
-                if (!response.ok) return;
-                
-                const remoteManifest = await response.json();
-                const remoteVersion = remoteManifest.version;
-
-                // 3. Confronta
-                if (this.isNewer(remoteVersion, localVersion)) {
-                    this.notifyUpdate(remoteVersion);
-                } else {
-                    console.log(`aBetterPlace è aggiornato (v${localVersion})`);
-                }
-
-            } catch (error) {
-                console.warn('Impossibile verificare aggiornamenti:', error);
+            // 3. Confronta
+            if (this.isNewer(remoteVersion, localVersion)) {
+                this.notifyUpdate(remoteVersion);
+            } else {
+                console.log(`aBetterPlace è aggiornato (v${localVersion})`);
             }
-        });
+
+        } catch (error) {
+            console.warn('Impossibile verificare aggiornamenti:', error);
+        }
     },
 
     /**

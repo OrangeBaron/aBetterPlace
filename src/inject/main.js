@@ -27,7 +27,7 @@
         }
 
         if (window.aBetterPlace.Updater) {
-            setTimeout(() => window.aBetterPlace.Updater.check(), 2000);
+            setTimeout(() => window.aBetterPlace.Updater.check(globalOptions), 2000);
         }
 
         const safeUpdate = window.aBetterPlace.Utils.debounce(performUpdates, 300);
