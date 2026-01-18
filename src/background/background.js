@@ -14,7 +14,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
         const targetDomain = atob("cmFpcGVybWUuaW50cmFuZXQucmFpLml0");
         
-        const authDomain = "/dana-na/auth/";
+        const authDomain = atob("d3d3LnJhaXBsYWNlLnJhaS5pdC9kYW5hLW5hL2F1dGgv");
 
         // CASO 1: Portale Principale
         if (tab.url.includes(targetDomain)) {
