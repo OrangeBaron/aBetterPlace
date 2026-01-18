@@ -8,7 +8,7 @@
 - Rimuove il secondo campo della data e il bottone "vai" (inutili) e aggiunge al loro posto due bottoni per muoversi al giorno precedente/successivo.
 - Sostituisce i popup di notifica ed errore con dei toast meno invasivi.
 - Seleziona automaticamente le maggiorazioni proposte.
-- Rimuove le animazioni del pannello di gestione delle presenze e ripristina lo scroll della pagina dopo averlo chiuso.
+- Rimuove le animazioni del pannello di gestione delle presenze e ripristina lo scorrimento della pagina dopo averlo chiuso.
 - Corregge i collegamenti non funzionanti dei segnalibri.
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
 - Previene il blocco della pagina intercettando gli errori di esecuzione negli script del portale.
