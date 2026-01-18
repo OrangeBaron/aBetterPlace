@@ -1,35 +1,19 @@
 window.aBetterPlace = window.aBetterPlace || {};
 
 window.aBetterPlace.LogoHandler = {
-    process: function() {
-        // Recuperiamo la preferenza utente (Default: true)
-        chrome.storage.sync.get({ customLogo: true }, (items) => {
-            
-            // Se l'utente ha disattivato l'opzione, non facciamo nulla.
-            // Il logo originale rimarrà al suo posto.
-            if (!items.customLogo) return;
+    process: function(options) {
+        if (options && !options.customLogo) return;
 
-            // --- LOGICA ORIGINALE ---
+        const img = document.querySelector('img[class="img-responsive standard-logo"]');
 
-            // Selettore specifico per trovare l'immagine originale
-            const img = document.querySelector('img[class="img-responsive standard-logo"]');
+        if (!img || img.src.includes('chrome-extension://')) return;
 
-            // Se l'immagine non c'è o l'abbiamo già sostituita, usciamo
-            if (!img || img.src.includes('chrome-extension://')) return;
+        const newLogoUrl = chrome.runtime.getURL('assets/logo.png');
 
-            // Recuperiamo l'URL del nuovo logo interno all'estensione
-            const newLogoUrl = chrome.runtime.getURL('assets/logo.png');
-
-            // 1. Sostituiamo la sorgente
-            img.src = newLogoUrl;
-
-            // 2. Aggiorniamo le dimensioni HTML per il layout engine
-            img.setAttribute("width", "146");
-            img.setAttribute("height", "40");
-
-            // 3. Rimuoviamo eventuali stili inline che potrebbero interferire
-            img.style.width = ""; 
-            img.style.height = "";
-        });
+        img.src = newLogoUrl;
+        img.setAttribute("width", "146");
+        img.setAttribute("height", "40");
+        img.style.width = ""; 
+        img.style.height = "";
     }
 };
