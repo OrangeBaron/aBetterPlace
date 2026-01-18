@@ -12,7 +12,10 @@
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
 - Previene il crash della pagina in caso di errori del server.
 
+È possibile personalizzare il comportamento dell'estensione accedendo al pannello delle **Opzioni** (tasto destro sull'icona dell'estensione > Opzioni).
+
 ## 🔮 Funzionalità future
+
 - Auto-assegnazione delle attività alle maggiorazioni.
 - Calcolo della flessibilità oraria totale usata/rimanente.
 
@@ -30,6 +33,7 @@
 **a Better Place** è un progetto personale e non ufficiale. Non è sviluppato, mantenuto o supportato dall'azienda o dal reparto IT.
 
 L'autore fornisce questo software "così com'è", senza alcuna garanzia. Utilizzando questa estensione accetti che:
+
 - **L'uso è a tuo completo rischio e pericolo.**
 - **L'autore non è responsabile** per eventuali errori nell'inserimento dati, anomalie nella visualizzazione o malfunzionamenti del portale causati dall'estensione.
 - **È tua responsabilità** verificare che le richieste (ferie, permessi, presenze) siano state salvate correttamente dal sistema dopo l'inserimento.
