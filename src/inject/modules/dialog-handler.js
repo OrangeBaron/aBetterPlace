@@ -8,46 +8,48 @@ window.aBetterPlace.DialogHandler = {
 
         // Se non c'è nessun popup attivo
         if (!container || !swalModal) {
-            // PULIZIA: Rimuoviamo la classe 'abp-allowed' se presente, 
-            // così il prossimo popup che si aprirà partirà di nuovo invisibile.
             if (container) container.classList.remove('abp-allowed');
             return;
         }
 
-        const titleEl = swalModal.querySelector('#swal2-title');
-        const contentEl = swalModal.querySelector('#swal2-content');
-        const confirmBtn = swalModal.querySelector('.swal2-confirm');
-        
-        const titleText = titleEl ? titleEl.textContent.trim() : '';
-        const titleCheck = titleText.toLowerCase();
-        
-        const isNota = titleCheck === 'nota';
-        const isErrore = titleCheck === 'errore';
-
-        if (isNota || isErrore) {
-            // --- CASO 1: POPUP DA NASCONDERE ---
-            // NON aggiungiamo la classe 'abp-allowed'.
-            // Il popup esiste nel DOM ma è invisibile grazie al CSS in utils.js.
-
-            const contentText = contentEl ? contentEl.textContent.trim() : '';
-            const titleColor = isErrore ? '#ff4444' : '#26affb';
-
-            // Mostriamo il Toast sostitutivo
-            if (contentText) {
-                aBetterPlace.Utils.UI.showToast(titleText, contentText, titleColor);
+        // Recuperiamo la preferenza utente (Default: true)
+        chrome.storage.sync.get({ toastNotifications: true }, (items) => {
+            
+            // SE L'UTENTE HA DISATTIVATO I TOAST:
+            // Mostriamo subito il popup originale e usciamo.
+            if (!items.toastNotifications) {
+                container.classList.add('abp-allowed');
+                return;
             }
 
-            // Clicchiamo "OK" sul bottone invisibile per sbloccare la pagina
-            if (confirmBtn) confirmBtn.click();
+            // --- LOGICA ORIGINALE (TOAST ATTIVI) ---
             
-            // Sicurezza extra: ci assicuriamo che rimanga invisibile mentre si chiude
-            container.classList.remove('abp-allowed');
+            const titleEl = swalModal.querySelector('#swal2-title');
+            const contentEl = swalModal.querySelector('#swal2-content');
+            const confirmBtn = swalModal.querySelector('.swal2-confirm');
+            
+            const titleText = titleEl ? titleEl.textContent.trim() : '';
+            const titleCheck = titleText.toLowerCase();
+            
+            const isNota = titleCheck === 'nota';
+            const isErrore = titleCheck === 'errore';
 
-        } else {
-            // --- CASO 2: POPUP LEGITTIMO ---
-            // È un messaggio che l'utente DEVE vedere.
-            // Aggiungiamo la classe che sovrascrive il CSS e lo rende visibile.
-            container.classList.add('abp-allowed');
-        }
+            if (isNota || isErrore) {
+                // CASO 1: POPUP DA NASCONDERE
+                const contentText = contentEl ? contentEl.textContent.trim() : '';
+                const titleColor = isErrore ? '#ff4444' : '#26affb';
+
+                if (contentText) {
+                    aBetterPlace.Utils.UI.showToast(titleText, contentText, titleColor);
+                }
+
+                if (confirmBtn) confirmBtn.click();
+                container.classList.remove('abp-allowed');
+
+            } else {
+                // CASO 2: POPUP LEGITTIMO
+                container.classList.add('abp-allowed');
+            }
+        });
     }
 };

@@ -16,7 +16,7 @@ window.aBetterPlace.FormHandler = {
             disabledButtons.forEach(btn => aBetterPlace.Utils.DOM.unlock(btn));
         }
 
-        // 3. Checkbox Proposta
+        // 3. Checkbox "Proposta"
         const newProposte = document.querySelectorAll('input[name="CBproposta"]:not([data-abp-handled])');
 
         if (newProposte.length > 0) {

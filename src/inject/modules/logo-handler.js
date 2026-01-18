@@ -2,24 +2,34 @@ window.aBetterPlace = window.aBetterPlace || {};
 
 window.aBetterPlace.LogoHandler = {
     process: function() {
-        // Selettore specifico per trovare l'immagine originale
-        const img = document.querySelector('img[class="img-responsive standard-logo"]');
+        // Recuperiamo la preferenza utente (Default: true)
+        chrome.storage.sync.get({ customLogo: true }, (items) => {
+            
+            // Se l'utente ha disattivato l'opzione, non facciamo nulla.
+            // Il logo originale rimarrà al suo posto.
+            if (!items.customLogo) return;
 
-        // Se l'immagine non c'è o l'abbiamo già sostituita (controllando se il src contiene 'chrome-extension'), usciamo
-        if (!img || img.src.includes('chrome-extension://')) return;
+            // --- LOGICA ORIGINALE ---
 
-        // Recuperiamo l'URL del nuovo logo interno all'estensione
-        const newLogoUrl = chrome.runtime.getURL('assets/logo.png');
+            // Selettore specifico per trovare l'immagine originale
+            const img = document.querySelector('img[class="img-responsive standard-logo"]');
 
-        // 1. Sostituiamo la sorgente
-        img.src = newLogoUrl;
+            // Se l'immagine non c'è o l'abbiamo già sostituita, usciamo
+            if (!img || img.src.includes('chrome-extension://')) return;
 
-        // 2. Aggiorniamo le dimensioni HTML per il layout engine
-        img.setAttribute("width", "146");
-        img.setAttribute("height", "40");
+            // Recuperiamo l'URL del nuovo logo interno all'estensione
+            const newLogoUrl = chrome.runtime.getURL('assets/logo.png');
 
-        // 3. Rimuoviamo eventuali stili inline che potrebbero interferire
-        img.style.width = ""; 
-        img.style.height = "";
+            // 1. Sostituiamo la sorgente
+            img.src = newLogoUrl;
+
+            // 2. Aggiorniamo le dimensioni HTML per il layout engine
+            img.setAttribute("width", "146");
+            img.setAttribute("height", "40");
+
+            // 3. Rimuoviamo eventuali stili inline che potrebbero interferire
+            img.style.width = ""; 
+            img.style.height = "";
+        });
     }
 };
