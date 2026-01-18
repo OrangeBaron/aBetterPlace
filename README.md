@@ -10,6 +10,8 @@
 - Seleziona automaticamente le maggiorazioni proposte.
 - Rimuove le animazioni del pannello di gestione delle presenze e ripristina lo scorrimento della pagina dopo averlo chiuso.
 - Corregge i collegamenti non funzionanti dei segnalibri.
+- Rende visibile il codice OTP e impedisce al browser di identificarlo erroneamente come una password da aggiornare.
+- Chiude immediatamente le sessioni attive su altri dispositivi e completa automaticamente l'accesso.
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
 - Previene il blocco della pagina intercettando gli errori di esecuzione negli script del portale.
 
