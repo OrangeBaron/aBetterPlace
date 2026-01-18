@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Impostazioni a Better Place</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            width: 350px;
+            color: #333;
+        }
+        h2 { margin-top: 0; font-size: 18px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .option-group { margin: 15px 0; }
+        label { display: flex; align-items: flex-start; cursor: pointer; }
+        input[type="checkbox"] { margin-right: 10px; margin-top: 3px; }
+        .desc { font-size: 13px; color: #666; margin-top: 4px; line-height: 1.4; }
+        .status { margin-top: 20px; font-size: 12px; color: green; opacity: 0; transition: opacity 0.5s; }
+    </style>
+</head>
+<body>
+    <h2>Impostazioni</h2>
+    
+    <div class="option-group">
+        <label>
+            <input type="checkbox" id="privacy-mode">
+            <div>
+                <strong>Modalità Privacy (Network Aziendale)</strong>
+                <div class="desc">
+                    Disabilita il caricamento di font e librerie da server esterni (CDN). 
+                    Attiva questa opzione se sei su una rete chiusa o vuoi evitare connessioni verso internet.
+                </div>
+            </div>
+        </label>
+    </div>
+
+    <div id="status" class="status">Impostazioni salvate.</div>
+
+    <script src="options.js"></script>
+</body>
+</html>
