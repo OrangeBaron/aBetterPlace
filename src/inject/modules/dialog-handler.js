@@ -17,7 +17,6 @@ window.aBetterPlace.DialogHandler = {
             return;
         }
 
-        // --- LOGICA ORIGINALE ---
         const titleEl = swalModal.querySelector('#swal2-title');
         const contentEl = swalModal.querySelector('#swal2-content');
         const confirmBtn = swalModal.querySelector('.swal2-confirm');
@@ -32,8 +31,8 @@ window.aBetterPlace.DialogHandler = {
             const contentText = contentEl ? contentEl.textContent.trim() : '';
             const titleColor = isErrore ? '#ff4444' : '#26affb';
 
-            if (contentText) {
-                aBetterPlace.Utils.UI.showToast(titleText, contentText, titleColor);
+            if (contentText && window.aBetterPlace.UIManager) {
+                window.aBetterPlace.UIManager.showToast(titleText, contentText, titleColor);
             }
 
             if (confirmBtn) confirmBtn.click();

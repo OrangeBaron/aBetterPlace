@@ -6,22 +6,18 @@ window.aBetterPlace.Updater = {
     check: async function(options) {
         const shouldCheck = options ? options.checkUpdates : true;
 
-        // Se l'utente ha disabilitato gli aggiornamenti, usciamo.
         if (!shouldCheck) return;
 
         try {
-            // 1. Recupera la versione locale
             const localManifest = chrome.runtime.getManifest();
             const localVersion = localManifest.version;
 
-            // 2. Recupera la versione remota
             const response = await fetch(this.repoUrl);
             if (!response.ok) return;
             
             const remoteManifest = await response.json();
             const remoteVersion = remoteManifest.version;
 
-            // 3. Confronta
             if (this.isNewer(remoteVersion, localVersion)) {
                 this.notifyUpdate(remoteVersion);
             } else {
@@ -33,10 +29,6 @@ window.aBetterPlace.Updater = {
         }
     },
 
-    /**
-     * Confronta due stringhe di versione
-     * Ritorna true se remote > local
-     */
     isNewer: function(remote, local) {
         const rParts = remote.split('.').map(Number);
         const lParts = local.split('.').map(Number);
@@ -54,8 +46,8 @@ window.aBetterPlace.Updater = {
         const msg = `È disponibile la versione <b>${newVersion}</b>.<br>
                      <a href="https://github.com/OrangeBaron/aBetterPlace/archive/refs/heads/main.zip" target="_blank" style="color: #fff; text-decoration: underline;">Clicca qui per scaricarla</a>.`;
         
-        if (window.aBetterPlace.Utils && window.aBetterPlace.Utils.UI) {
-            window.aBetterPlace.Utils.UI.showToast("Aggiornamento", msg, "#28a745", 5000);
+        if (window.aBetterPlace.UIManager) {
+            window.aBetterPlace.UIManager.showToast("Aggiornamento", msg, "#28a745", 5000);
         }
     }
 };

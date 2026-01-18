@@ -28,6 +28,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                 target: { tabId: tabId },
                 files: [
                     "src/inject/utils.js",
+                    "src/inject/modules/style-manager.js", 
+                    "src/inject/modules/ui-manager.js",    
                     "src/inject/modules/form-handler.js",
                     "src/inject/modules/dialog-handler.js",
                     "src/inject/modules/layout-handler.js",

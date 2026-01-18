@@ -4,11 +4,11 @@
 
 ## 🪄 Funzionalità
 
-- Sblocca l'inserimento delle richieste in caso di assenza ingiustificata riabilitando la selezione della data e i bottoni della gestione presenze.
+- Sblocca l'inserimento delle richieste in caso di assenza ingiustificata riabilitando la selezione della data nel pannello delle presenze e i bottoni nella gestione delle giornate in evidenza.
 - Rimuove il secondo campo della data e il bottone "vai" (inutili) e aggiunge al loro posto due bottoni per muoversi al giorno precedente/successivo.
 - Sostituisce i popup di notifica ed errore con dei toast meno invasivi.
 - Seleziona automaticamente le maggiorazioni proposte.
-- Riattiva lo scroll della pagina dopo aver chiuso il form di gestione presenze.
+- Rimuove le animazioni al pannello di gestione delle presenze e riattiva lo scroll della pagina dopo averlo chiuso.
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
 - Previene il crash della pagina in caso di errori del server.
 

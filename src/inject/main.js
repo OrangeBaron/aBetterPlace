@@ -7,7 +7,6 @@
         checkUpdates: true
     };
 
-    // Funzione principale di update
     const performUpdates = () => {
         if (window.aBetterPlace.FormHandler) window.aBetterPlace.FormHandler.process();
         if (window.aBetterPlace.DialogHandler) window.aBetterPlace.DialogHandler.process(globalOptions);
@@ -22,8 +21,8 @@
 
     const startSystem = () => {
         // 0. INIEZIONE STILI
-        if (window.aBetterPlace.Utils) {
-            window.aBetterPlace.Utils.injectStyles();
+        if (window.aBetterPlace.StyleManager) {
+            window.aBetterPlace.StyleManager.init();
         }
 
         if (window.aBetterPlace.Updater) {
@@ -35,51 +34,36 @@
         // --- OBSERVER 1: BODY ---
         const bodyObserver = new MutationObserver((mutations) => {
             let shouldUpdate = false;
-            
             for (const mutation of mutations) {
                 if (mutation.target.id === 'better-nav-btns' || mutation.target.id === 'better-toast') continue;
-
-                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                    shouldUpdate = true;
-                    break; 
-                }
-                if (mutation.type === 'attributes') { 
-                    shouldUpdate = true; 
-                    break; 
-                }
+                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) { shouldUpdate = true; break; }
+                if (mutation.type === 'attributes') { shouldUpdate = true; break; }
             }
             if (shouldUpdate) safeUpdate();
         });
 
         bodyObserver.observe(document.body, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ["disabled", "class", "style"]
+            childList: true, subtree: true, attributes: true, attributeFilter: ["disabled", "class", "style"]
         });
 
         // --- OBSERVER 2: HTML ---
-        const htmlObserver = new MutationObserver((mutations) => {
+        const htmlObserver = new MutationObserver(() => {
             if (window.aBetterPlace.LayoutHandler) window.aBetterPlace.LayoutHandler.process();
         });
 
         htmlObserver.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['style', 'class', 'overflow', 'padding-right']
+            attributes: true, attributeFilter: ['style', 'class', 'overflow', 'padding-right']
         });
 
-        // Primo avvio
         performUpdates();
     };
 
     // --- INIT ---
-    // 1. Carichiamo le opzioni dallo storage
     chrome.storage.sync.get(globalOptions, (items) => {
         globalOptions = items;
         startSystem();
     });
 
-    // 2. Ascoltiamo cambiamenti futuri
     chrome.storage.onChanged.addListener((changes, namespace) => {
         if (namespace === 'sync') {
             let changed = false;
@@ -92,5 +76,4 @@
             if (changed) performUpdates();
         }
     });
-
 })();
