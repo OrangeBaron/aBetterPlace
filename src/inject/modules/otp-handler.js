@@ -43,7 +43,9 @@ window.aBetterPlace.OtpHandler = {
                 originalInput.type = 'hidden';
                 originalInput.removeAttribute('required');
 
-                console.log(`aBetterPlace: Proxy OTP attivo per ${originalId}.`);
+                if (originalId === "password_14") {
+                    proxyInput.focus();
+                }
             }
         });
     }

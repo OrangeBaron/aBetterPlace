@@ -53,6 +53,10 @@ window.aBetterPlace.Utils = {
 
     Date: {
         parse: function(dateString) {
+            if (!dateString) return null;
+            if (window.moment) {
+                return window.moment(dateString, "DD/MM/YYYY").toDate();
+            }
             const parts = dateString.split('/');
             if (parts.length !== 3) return null;
             return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
