@@ -3,16 +3,16 @@
 // Salva le opzioni su chrome.storage
 const saveOptions = () => {
     const privacyMode = document.getElementById('privacy-mode').checked;
+    const loginImprovements = document.getElementById('login-improvements').checked;
     const toastNotifications = document.getElementById('toast-notifications').checked;
     const customLogo = document.getElementById('custom-logo').checked;
-    const checkUpdates = document.getElementById('check-updates').checked;
   
     chrome.storage.sync.set(
       { 
         privacyMode,
+        loginImprovements,
         toastNotifications,
-        customLogo,
-        checkUpdates
+        customLogo
       },
       () => {
         const status = document.getElementById('status');
@@ -29,15 +29,15 @@ const restoreOptions = () => {
     chrome.storage.sync.get(
       { 
         privacyMode: false,
+        loginImprovements: true,
         toastNotifications: true,
-        customLogo: true,
-        checkUpdates: true
+        customLogo: true
       }, 
       (items) => {
         document.getElementById('privacy-mode').checked = items.privacyMode;
+        document.getElementById('login-improvements').checked = items.loginImprovements;
         document.getElementById('toast-notifications').checked = items.toastNotifications;
         document.getElementById('custom-logo').checked = items.customLogo;
-        document.getElementById('check-updates').checked = items.checkUpdates;
       }
     );
 };
@@ -104,6 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Aggiungi listener per tutti gli input
-['privacy-mode', 'toast-notifications', 'custom-logo', 'check-updates'].forEach(id => {
+['privacy-mode', 'login-improvements', 'toast-notifications', 'custom-logo'].forEach(id => {
     document.getElementById(id).addEventListener('change', saveOptions);
 });

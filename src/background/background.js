@@ -48,30 +48,38 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         // CASO 2: Portale Autenticazione
         } else if (tab.url.includes(authDomain)) {
             
-            chrome.scripting.executeScript({
-                target: { tabId: tabId },
-                files: [
-                    "src/inject/modules/otp-handler.js",
-                    "src/inject/modules/session-handler.js"
-                ],
-                world: "MAIN" 
-            })
-            .then(() => {
+            chrome.storage.sync.get({ loginImprovements: true }, (items) => {
+                
+                if (!items.loginImprovements) {
+                    console.log("Login improvements disabled by user.");
+                    return;
+                }
+
                 chrome.scripting.executeScript({
                     target: { tabId: tabId },
-                    func: () => {
-                        if (window.aBetterPlace && window.aBetterPlace.OtpHandler) {
-                            window.aBetterPlace.OtpHandler.process();
-                        }
-                        if (window.aBetterPlace && window.aBetterPlace.SessionHandler) {
-                            window.aBetterPlace.SessionHandler.process();
-                        }
-                    },
-                    world: "MAIN"
-                });
-                console.log("Auth modules injected.");
-            })
-            .catch(err => console.error("Auth injection failed:", err));
+                    files: [
+                        "src/inject/modules/otp-handler.js",
+                        "src/inject/modules/session-handler.js"
+                    ],
+                    world: "MAIN" 
+                })
+                .then(() => {
+                    chrome.scripting.executeScript({
+                        target: { tabId: tabId },
+                        func: () => {
+                            if (window.aBetterPlace && window.aBetterPlace.OtpHandler) {
+                                window.aBetterPlace.OtpHandler.process();
+                            }
+                            if (window.aBetterPlace && window.aBetterPlace.SessionHandler) {
+                                window.aBetterPlace.SessionHandler.process();
+                            }
+                        },
+                        world: "MAIN"
+                    });
+                    console.log("Auth modules injected.");
+                })
+                .catch(err => console.error("Auth injection failed:", err));
+            });
         }
     }
 });

@@ -2,9 +2,9 @@
     // --- CONFIGURAZIONE CENTRALIZZATA ---
     let globalOptions = {
         privacyMode: false,
+        loginImprovements: true,
         toastNotifications: true,
         customLogo: true,
-        checkUpdates: true
     };
 
     const performUpdates = () => {

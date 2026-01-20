@@ -4,7 +4,7 @@ window.aBetterPlace.Updater = {
     repoUrl: 'https://raw.githubusercontent.com/OrangeBaron/aBetterPlace/main/manifest.json',
     
     check: async function(options) {
-        const shouldCheck = options ? options.checkUpdates : true;
+        const shouldCheck = options ? !options.privacyMode : true;
 
         if (!shouldCheck) return;
 
