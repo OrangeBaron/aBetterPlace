@@ -1,7 +1,6 @@
 window.aBetterPlace = window.aBetterPlace || {};
 
 window.aBetterPlace.BookmarkHandler = {
-    // Stati possibili: 'unknown' (non ancora verificato), 'internal' (rete aziendale), 'external' (fuori ufficio)
     networkStatus: 'unknown',
     isChecking: false,
 
@@ -9,7 +8,6 @@ window.aBetterPlace.BookmarkHandler = {
         // 1. Se abbiamo già stabilito che siamo "interni", non serve fare nulla.
         if (this.networkStatus === 'internal') return;
 
-        // Mappa dei link da controllare/correggere
         const linkMap = {
             "COMUNICAZIONE": "/pagine/comunicazione/",
             "CORPORATE": "/pagine/corporate/",
@@ -34,11 +32,10 @@ window.aBetterPlace.BookmarkHandler = {
         for (const anchor of anchors) {
             if (linkMap.hasOwnProperty(anchor.textContent.trim().toUpperCase())) {
                 testAnchor = anchor;
-                break; // Ne basta uno qualsiasi
+                break;
             }
         }
 
-        // Se non ci sono link da correggere nella pagina, usciamo
         if (!testAnchor) return;
 
         // 5. Eseguiamo il test di raggiungibilità
@@ -47,18 +44,14 @@ window.aBetterPlace.BookmarkHandler = {
         fetch(testAnchor.href, { method: 'HEAD' })
             .then(response => {
                 if (response.ok) {
-                    // Il link funziona: siamo nella rete interna
                     this.networkStatus = 'internal';
                 } else {
-                    // Il server ha risposto con errore
                     throw new Error("Link rotto o 404");
                 }
             })
             .catch(() => {
-                // Fetch fallita o errore rilevato
                 this.networkStatus = 'external';
                 
-                // Richiamiamo la funzione di fix sugli elementi
                 this.applyFix(document.querySelectorAll('#menu-principale a, #menu a'), linkMap);
             })
             .finally(() => {
@@ -67,7 +60,6 @@ window.aBetterPlace.BookmarkHandler = {
     },
 
     applyFix: function(anchors, linkMap) {
-        // Costruiamo l'URL modificato con la porta 11003
         const baseUrl = `${window.location.protocol}//${window.location.hostname}:11003`;
 
         anchors.forEach(anchor => {
@@ -76,7 +68,6 @@ window.aBetterPlace.BookmarkHandler = {
             if (linkMap.hasOwnProperty(text)) {
                 const correctUrl = baseUrl + linkMap[text];
                 
-                // Aggiorniamo l'href solo se diverso
                 if (anchor.href !== correctUrl) {
                     anchor.href = correctUrl;
                 }

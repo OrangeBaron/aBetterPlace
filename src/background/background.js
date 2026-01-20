@@ -13,7 +13,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete' && tab.url) {
 
         const targetDomain = atob("cmFpcGVybWUuaW50cmFuZXQucmFpLml0");
-        
         const authDomain = atob("d3d3LnJhaXBsYWNlLnJhaS5pdC9kYW5hLW5hL2F1dGgv");
 
         // CASO 1: Portale Principale
@@ -54,7 +53,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                 files: [
                     "src/inject/modules/otp-handler.js",
                     "src/inject/modules/session-handler.js"
-                ]
+                ],
+                world: "MAIN" 
             })
             .then(() => {
                 chrome.scripting.executeScript({
@@ -66,7 +66,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                         if (window.aBetterPlace && window.aBetterPlace.SessionHandler) {
                             window.aBetterPlace.SessionHandler.process();
                         }
-                    }
+                    },
+                    world: "MAIN"
                 });
                 console.log("Auth modules injected.");
             })

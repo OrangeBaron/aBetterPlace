@@ -4,14 +4,13 @@
 
 ## 🪄 Funzionalità
 
-- Sblocca l'inserimento delle richieste in caso di assenza ingiustificata riabilitando la selezione della data nel pannello delle presenze e i bottoni nella gestione delle giornate in evidenza.
-- Rimuove il secondo campo della data e il bottone "vai" (inutili) e aggiunge al loro posto due bottoni per muoversi al giorno precedente/successivo.
-- Sostituisce i popup di notifica ed errore con dei toast meno invasivi.
-- Seleziona automaticamente le maggiorazioni proposte.
-- Rimuove le animazioni del pannello di gestione delle presenze e ripristina lo scorrimento della pagina dopo averlo chiuso.
-- Corregge i collegamenti non funzionanti dei segnalibri.
-- Rende visibile il codice OTP e impedisce al browser di identificarlo erroneamente come una password da aggiornare.
-- Chiude immediatamente le sessioni attive su altri dispositivi e completa automaticamente l'accesso.
+- Sblocca la navigazione e l'inserimento delle richieste in caso di assenza ingiustificata.
+- Aggiunge due bottoni per passare comodamente al giorno precedente/successivo.
+- Sostituisce i popup di notifica/errore con toast meno invasivi.
+- Rimuove le animazioni del pannello laterale e ripristina il corretto scorrimento della pagina.
+- Seleziona automaticamente le caselle delle maggiorazioni proposte.
+- Ripara i collegamenti dei segnalibri.
+- Migliora l'intera fase di accesso dall'inserimento delle credenziali alla chiusura delle sessioni attive.
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
 - Previene il blocco della pagina intercettando gli errori di esecuzione negli script del portale.
 
