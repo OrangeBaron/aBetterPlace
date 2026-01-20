@@ -38,6 +38,10 @@ Quando l'estensione ti segnala che è disponibile una nuova versione:
    - Vai su `chrome://extensions` e clicca sull'icona della freccia circolare (Ricarica) nel riquadro di **a Better Place**.
    - Oppure chiudi completamente Google Chrome e riaprilo.
 
+## 📱 Utilizzo su Mobile
+
+L'estensione funziona anche sui browser mobile che supportano il caricamento manuale delle estensioni, come **Kiwi Browser** (Android) e **Orion Browser** (iOS).
+
 ## ⚠️ Disclaimer
 
 **a Better Place** è un progetto personale e non ufficiale. Non è sviluppato, mantenuto o supportato dall'azienda o dal reparto IT.

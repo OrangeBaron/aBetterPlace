@@ -33,6 +33,24 @@ window.aBetterPlace.StyleManager = {
             #modal-popin.in {
                 opacity: 1 !important;
             }
+
+            /* --- RIMOZIONE CHATBOT --- */
+            #chatBoxContainer,
+            #chatBoxButton,
+            #chatCloseBoxButton,
+            .chat-panel,
+            .chat-msg-container,
+            .chat-inner-container {
+                display: none !important;
+                visibility: hidden !important;
+                pointer-events: none !important;
+                height: 0 !important;
+                width: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                opacity: 0 !important;
+                z-index: -9999 !important;
+            }
         `;
         document.head.appendChild(style);
     }
