@@ -4,18 +4,22 @@
         privacyMode: false,
         loginImprovements: true,
         toastNotifications: true,
-        customLogo: true,
+        thePlaceMode: true
     };
 
     const performUpdates = () => {
         if (window.aBetterPlace.FormHandler) window.aBetterPlace.FormHandler.process();
         if (window.aBetterPlace.DialogHandler) window.aBetterPlace.DialogHandler.process(globalOptions);
-                
+
         if (window.aBetterPlace.LayoutHandler) window.aBetterPlace.LayoutHandler.process();
-        if (window.aBetterPlace.LogoHandler) window.aBetterPlace.LogoHandler.process(globalOptions);
+        if (window.aBetterPlace.LogoHandler) window.aBetterPlace.LogoHandler.process();
 
         if (window.aBetterPlace.BookmarkHandler) window.aBetterPlace.BookmarkHandler.process();
-        
+
+        if (globalOptions.thePlaceMode && window.aBetterPlace.ThePlace) {
+            window.aBetterPlace.ThePlace.init();
+        }
+
         if (window.aBetterPlace.DateNav && !document.getElementById("better-nav-btns")) {
             window.aBetterPlace.DateNav.init();
         }
@@ -26,6 +30,15 @@
         if (window.aBetterPlace.StyleManager) {
             window.aBetterPlace.StyleManager.init();
         }
+
+        // --- ASCOLTATORE PER GLI ALERT NATIVI ---
+        document.addEventListener('abp-show-toast', (e) => {
+            if (!globalOptions.toastNotifications) return;
+
+            if (window.aBetterPlace.UIManager && e.detail && e.detail.text) {
+                window.aBetterPlace.UIManager.showToast("Alert", e.detail.text, "#ffa500", 5000);
+            }
+        });
 
         if (window.aBetterPlace.Updater) {
             setTimeout(() => window.aBetterPlace.Updater.check(globalOptions), 2000);

@@ -202,7 +202,7 @@
     {
         "id": 303,
         "priority": 1,
-        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" } },
+        "action": { "type": "redirect", "redirect": { "url": "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" } },
         "condition": { "regexFilter": ".*moment\\.js.*", "resourceTypes": ["script"] }
     },
     {

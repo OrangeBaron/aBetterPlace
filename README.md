@@ -9,6 +9,7 @@
 - Sostituisce i popup di notifica/errore con toast meno invasivi.
 - Rimuove le animazioni del pannello laterale e ripristina il corretto scorrimento della pagina.
 - Seleziona automaticamente le caselle delle maggiorazioni proposte.
+- Applica un'interfaccia mobile-friendly ispirata all'app "The Place" per la navigazione da smartphone.
 - Ripara i collegamenti dei segnalibri.
 - Migliora l'intera fase di accesso dall'inserimento delle credenziali alla chiusura delle sessioni attive.
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.

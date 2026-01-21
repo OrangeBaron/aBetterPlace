@@ -1,9 +1,7 @@
 window.aBetterPlace = window.aBetterPlace || {};
 
 window.aBetterPlace.LogoHandler = {
-    process: function(options) {
-        if (options && !options.customLogo) return;
-
+    process: function() {
         const img = document.querySelector('img[class="img-responsive standard-logo"]');
 
         if (!img || img.src.includes('chrome-extension://')) return;

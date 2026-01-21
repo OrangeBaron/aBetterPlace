@@ -37,6 +37,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                     "src/inject/modules/layout-handler.js",
                     "src/inject/modules/date-nav.js",
                     "src/inject/modules/bookmark-handler.js",
+                    "src/inject/modules/the-place.js",
                     "src/inject/updater.js",
                     "src/inject/modules/logo-handler.js",
                     "src/inject/main.js"
