@@ -11,11 +11,10 @@ window.aBetterPlace.ThePlace = {
     },
 
     injectInterface: function() {
-        // --- 0. SAFETY CHECK ---
         const desktopNav = document.querySelector('#menu .nav-main.hidden-xs');
         if (!desktopNav) return;
 
-        // --- 1. Generazione Dinamica Menu ---
+        // --- Generazione Dinamica Menu ---
         const menuItems = [];
         const cleanText = (text) => text ? text.replace(/\s+/g, ' ').trim() : '';
 
@@ -50,7 +49,26 @@ window.aBetterPlace.ThePlace = {
 
         if (menuItems.length === 0) return;
 
-        // --- 2. Inietta il CSS ---
+        // --- CATTURA STILE ORIGINALE ---
+        let dynamicBackground = '#4CAF50';
+        let dynamicBorder = '#388E3C';
+        
+        const originalHeader = document.getElementById('header');
+        if (originalHeader) {
+            const computed = window.getComputedStyle(originalHeader);
+            
+            if (computed.backgroundImage && computed.backgroundImage !== 'none') {
+                dynamicBackground = computed.backgroundImage;
+            } else if (computed.backgroundColor) {
+                dynamicBackground = computed.backgroundColor;
+            } else if (computed.background) {
+                dynamicBackground = computed.background;
+            }
+            
+            dynamicBorder = 'rgba(0, 0, 0, 0.1)';
+        }
+
+        // --- Inietta il CSS ---
         const logoUrl = chrome.runtime.getURL("assets/logo.png");
         
         const style = document.createElement('style');
@@ -58,11 +76,11 @@ window.aBetterPlace.ThePlace = {
             /* Nascondi header originale */
             #header { display: none !important; }
             
-            /* --- HEADER VERDE --- */
+            /* --- HEADER DINAMICO --- */
             #abp-mobile-header {
                 position: fixed; top: 0; left: 0; right: 0;
                 height: 56px;
-                background-color: #4CAF50;
+                background: ${dynamicBackground}; /* Usa lo stile catturato */
                 display: flex; align-items: center; justify-content: space-between;
                 padding: 0 16px;
                 z-index: 10000;
@@ -95,10 +113,10 @@ window.aBetterPlace.ThePlace = {
             #abp-drawer.open { transform: translateX(300px); }
 
             .abp-drawer-header {
-                background-color: #4CAF50;
+                background: ${dynamicBackground}; /* Usa lo stile catturato */
                 padding: 20px;
                 display: flex; align-items: center; justify-content: center;
-                border-bottom: 1px solid #388E3C;
+                border-bottom: 1px solid ${dynamicBorder};
             }
             .abp-drawer-header img {
                 max-width: 100%; height: 50px; object-fit: contain;
@@ -134,7 +152,7 @@ window.aBetterPlace.ThePlace = {
         `;
         document.head.appendChild(style);
 
-        // --- 3. Crea HTML Header ---
+        // --- Crea HTML Header ---
         const headerHTML = `
             <button id="abp-hamburger">☰</button>
             <img src="${logoUrl}" id="abp-header-logo" alt="a Better Place">
@@ -144,7 +162,7 @@ window.aBetterPlace.ThePlace = {
         headerDiv.innerHTML = headerHTML;
         document.body.prepend(headerDiv);
 
-        // --- 4. Crea HTML Drawer ---
+        // --- Crea HTML Drawer ---
         const drawerDiv = document.createElement('div');
         drawerDiv.id = 'abp-drawer';
         
@@ -173,12 +191,12 @@ window.aBetterPlace.ThePlace = {
         drawerDiv.innerHTML = drawerContent;
         document.body.appendChild(drawerDiv);
 
-        // --- 5. Crea Overlay ---
+        // --- Crea Overlay ---
         const overlayDiv = document.createElement('div');
         overlayDiv.id = 'abp-overlay';
         document.body.appendChild(overlayDiv);
 
-        // --- 6. Logica Javascript ---
+        // --- Logica Javascript ---
         const hamburger = document.getElementById('abp-hamburger');
         const overlay = document.getElementById('abp-overlay');
         const drawer = document.getElementById('abp-drawer');
