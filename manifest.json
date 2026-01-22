@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "a Better Place",
-  "version": "3.0.1", 
+  "version": "3.0.2", 
   "description": "Migliora l'esperienza utente dell'intranet aziendale",
   "permissions": [
     "scripting",
