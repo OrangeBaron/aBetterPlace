@@ -6,7 +6,7 @@
 
 - Sblocca la navigazione e l'inserimento delle richieste in caso di assenza ingiustificata.
 - Aggiunge due bottoni per passare comodamente al giorno precedente/successivo.
-- Sostituisce i popup di notifica/errore con toast meno invasivi.
+- Sostituisce i popup bloccanti di notifica/errore/conferma con toast meno invasivi.
 - Rimuove le animazioni del pannello laterale e ripristina lo scorrimento della pagina alla sua chiusura.
 - Preseleziona le caselle delle maggiorazioni proposte e la prima attività dall'elenco delle associazioni.
 - Applica un'interfaccia mobile-friendly ispirata all'app "The Place" per la navigazione da smartphone.
