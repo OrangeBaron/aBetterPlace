@@ -7,10 +7,10 @@
 - Sblocca la navigazione e l'inserimento delle richieste in caso di assenza ingiustificata.
 - Aggiunge due bottoni per passare comodamente al giorno precedente/successivo.
 - Sostituisce i popup di notifica/errore con toast meno invasivi.
-- Rimuove le animazioni del pannello laterale e ripristina il corretto scorrimento della pagina.
-- Seleziona automaticamente le caselle delle maggiorazioni proposte.
+- Rimuove le animazioni del pannello laterale e ripristina lo scorrimento della pagina alla sua chiusura.
+- Preseleziona le caselle delle maggiorazioni proposte e la prima attività dall'elenco delle associazioni.
 - Applica un'interfaccia mobile-friendly ispirata all'app "The Place" per la navigazione da smartphone.
-- Ripara i collegamenti dei segnalibri.
+- Ripara i collegamenti dei segnalibri nell'intestazione.
 - Migliora l'intera fase di accesso dall'inserimento delle credenziali alla chiusura delle sessioni attive.
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
 - Previene il blocco della pagina intercettando gli errori di esecuzione negli script del portale.
@@ -19,7 +19,6 @@
 
 ## 🔮 Funzionalità future
 
-- Auto-assegnazione delle attività alle maggiorazioni.
 - Calcolo della flessibilità oraria totale usata/rimanente.
 
 ## 📦 Installazione

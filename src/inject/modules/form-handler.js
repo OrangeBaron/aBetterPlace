@@ -16,7 +16,7 @@ window.aBetterPlace.FormHandler = {
             disabledButtons.forEach(btn => aBetterPlace.Utils.DOM.unlock(btn));
         }
 
-        // 3. Checkbox "Proposta"
+        // 3. Checkbox Proposta
         const newProposte = document.querySelectorAll('input[name="CBproposta"]:not([data-abp-handled])');
 
         if (newProposte.length > 0) {
@@ -27,6 +27,21 @@ window.aBetterPlace.FormHandler = {
                 }
 
                 cb.setAttribute('data-abp-handled', 'true');
+            });
+        }
+
+        // 4. Auto-selezione Attività
+        const selectsAttivita = document.querySelectorAll('select[name*="ListaAssociazioni"][name*="idattivitascelta"]:not([data-abp-handled])');
+
+        if (selectsAttivita.length > 0) {
+            selectsAttivita.forEach(select => {
+                if (select.options.length >= 3) {
+                    select.selectedIndex = 2; 
+
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+
+                select.setAttribute('data-abp-handled', 'true');
             });
         }
     }
