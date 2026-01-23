@@ -31,7 +31,7 @@ const restoreOptions = () => {
         privacyMode: false,
         loginImprovements: true,
         toastNotifications: true,
-        thePlaceMode: false
+        thePlaceMode: true
       }, 
       (items) => {
         document.getElementById('privacy-mode').checked = items.privacyMode;
