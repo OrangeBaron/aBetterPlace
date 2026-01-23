@@ -42,7 +42,7 @@ window.aBetterPlace.DialogHandler = {
             let toastMessage = rawContent;
 
             if (rawTitle && !rawContent) {
-                toastTitle = "Avviso";
+                toastTitle = "";
                 toastMessage = rawTitle;
             }
 
