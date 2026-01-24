@@ -65,6 +65,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                         "src/inject/modules/the-place.js",
                         "src/inject/updater.js",
                         "src/inject/modules/logo-handler.js",
+                        "src/inject/modules/settings-injector.js",
                         "src/inject/main.js"
                     ]
                 })
@@ -107,6 +108,22 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                 })
                 .catch(err => console.error("Auth injection failed:", err));
             });
+        }
+    }
+});
+
+// Listener per aggiornare le regole di rete quando le opzioni cambiano
+chrome.storage.onChanged.addListener((changes, namespace) => {
+    if (namespace === 'sync' && changes.privacyMode) {
+        const ruleId = 'network_rules';
+        if (changes.privacyMode.newValue) {
+            // Privacy Mode ATTIVA: Disabilita regole
+            chrome.declarativeNetRequest.updateEnabledRulesets({ disableRulesetIds: [ruleId] });
+            console.log("Privacy Mode enabled: Ruleset disabled.");
+        } else {
+            // Privacy Mode DISATTIVA: Abilita regole
+            chrome.declarativeNetRequest.updateEnabledRulesets({ enableRulesetIds: [ruleId] });
+            console.log("Privacy Mode disabled: Ruleset enabled.");
         }
     }
 });

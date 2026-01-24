@@ -15,7 +15,7 @@
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
 - Previene il blocco della pagina intercettando gli errori di esecuzione negli script del portale.
 
-È possibile personalizzare il comportamento dell'estensione accedendo al pannello delle **Opzioni** (tasto destro sull'icona dell'estensione > Opzioni).
+È possibile personalizzare il comportamento dell'estensione dalla pagina delle **Impostazioni** del portale.
 
 ## 🔮 Funzionalità future
 
