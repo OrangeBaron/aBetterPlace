@@ -52,7 +52,7 @@ window.aBetterPlace.DialogHandler = {
 
             // Mostriamo il Toast
             if ((toastTitle || toastMessage) && window.aBetterPlace.UIManager) {
-                window.aBetterPlace.UIManager.showToast(toastTitle, toastMessage, titleColor);
+                window.aBetterPlace.UIManager.showToast(toastMessage, toastTitle, titleColor);
             }
 
             // Clicchiamo il bottone di conferma

@@ -1,7 +1,7 @@
 window.aBetterPlace = window.aBetterPlace || {};
 
 window.aBetterPlace.UIManager = {
-    showToast: function(title, message, titleColor = '#26affb', timeout = 1500) {
+    showToast: function(message, title = "", titleColor = '#26affb', duration = 3000) {
         const id = 'better-toast';
         const oldToast = document.getElementById(id);
         if (oldToast) oldToast.remove();
@@ -30,6 +30,6 @@ window.aBetterPlace.UIManager = {
         setTimeout(() => {
             toast.style.opacity = '0';
             setTimeout(() => { if (toast.parentNode) toast.remove(); }, 300);
-        }, timeout);
+        }, duration);
     }
 };

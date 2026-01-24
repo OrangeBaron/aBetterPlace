@@ -47,7 +47,7 @@ window.aBetterPlace.Updater = {
                      <a href="https://github.com/OrangeBaron/aBetterPlace/archive/refs/heads/main.zip" target="_blank" style="color: #fff; text-decoration: underline;">Clicca qui per scaricarla</a>.`;
         
         if (window.aBetterPlace.UIManager) {
-            window.aBetterPlace.UIManager.showToast("Aggiornamento", msg, "#28a745", 5000);
+            window.aBetterPlace.UIManager.showToast(msg, "Aggiornamento", "#28a745", 5000);
         }
     }
 };

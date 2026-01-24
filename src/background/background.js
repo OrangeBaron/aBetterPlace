@@ -18,33 +18,59 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         // CASO 1: Portale Principale
         if (tab.url.includes(targetDomain)) {
             
-            chrome.scripting.executeScript({
-                target: { tabId: tabId },
-                files: ["src/inject/patch.js"],
-                world: "MAIN" 
-            })
-            .then(() => console.log("Patch injected."))
-            .catch(err => console.error("Patch injection failed:", err));
+            // 1. Leggiamo le opzioni
+            chrome.storage.sync.get({ bypassRestrictions: false, toastNotifications: true }, (items) => {
 
-            chrome.scripting.executeScript({
-                target: { tabId: tabId },
-                files: [
-                    "src/inject/utils.js",
-                    "src/inject/modules/style-manager.js",
-                    "src/inject/modules/ui-manager.js",
-                    "src/inject/modules/form-handler.js",
-                    "src/inject/modules/dialog-handler.js",
-                    "src/inject/modules/layout-handler.js",
-                    "src/inject/modules/date-nav.js",
-                    "src/inject/modules/bookmark-handler.js",
-                    "src/inject/modules/the-place.js",
-                    "src/inject/updater.js",
-                    "src/inject/modules/logo-handler.js",
-                    "src/inject/main.js"
-                ]
-            })
-            .then(() => console.log("System injected."))
-            .catch(err => console.error("System injection failed:", err));
+                // 2. Se l'opzione è attiva, iniettiamo il bypass
+                if (items.bypassRestrictions) {
+                    chrome.scripting.executeScript({
+                        target: { tabId: tabId },
+                        files: ["src/inject/modules/restrictions-bypass.js"],
+                        world: "MAIN" 
+                    })
+                    .then(() => console.log("Restrictions Bypass injected."))
+                    .catch(err => console.error("Bypass injection failed:", err));
+                }
+
+                // 3. Passiamo la preferenza dei toast
+                chrome.scripting.executeScript({
+                    target: { tabId: tabId },
+                    func: (enabled) => { window.abpToastEnabled = enabled; },
+                    args: [items.toastNotifications],
+                    world: "MAIN"
+                })
+                .then(() => {
+                    // Ora iniettiamo la patch
+                    return chrome.scripting.executeScript({
+                        target: { tabId: tabId },
+                        files: ["src/inject/patch.js"],
+                        world: "MAIN" 
+                    });
+                })
+                .then(() => console.log("Patch injected."))
+                .catch(err => console.error("Patch injection failed:", err));
+
+                // 4. Procediamo con il resto del sistema
+                chrome.scripting.executeScript({
+                    target: { tabId: tabId },
+                    files: [
+                        "src/inject/utils.js",
+                        "src/inject/modules/style-manager.js",
+                        "src/inject/modules/ui-manager.js",
+                        "src/inject/modules/form-handler.js",
+                        "src/inject/modules/dialog-handler.js",
+                        "src/inject/modules/layout-handler.js",
+                        "src/inject/modules/date-nav.js",
+                        "src/inject/modules/bookmark-handler.js",
+                        "src/inject/modules/the-place.js",
+                        "src/inject/updater.js",
+                        "src/inject/modules/logo-handler.js",
+                        "src/inject/main.js"
+                    ]
+                })
+                .then(() => console.log("System injected."))
+                .catch(err => console.error("System injection failed:", err));
+            });
         
         // CASO 2: Portale Autenticazione
         } else if (tab.url.includes(authDomain)) {

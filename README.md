@@ -4,7 +4,7 @@
 
 ## 🪄 Funzionalità
 
-- Sblocca la navigazione e l'inserimento delle richieste in caso di assenza ingiustificata.
+- Sblocca l'inserimento delle richieste in caso di assenza ingiustificata e/o attività non associata.
 - Aggiunge due bottoni per passare comodamente al giorno precedente/successivo.
 - Sostituisce i popup bloccanti di notifica/errore/conferma con toast meno invasivi.
 - Rimuove le animazioni del pannello laterale e ripristina lo scorrimento della pagina alla sua chiusura.
@@ -48,7 +48,7 @@ L'estensione funziona anche sui browser mobile che supportano il caricamento man
 
 L'autore fornisce questo software "così com'è", senza alcuna garanzia. Utilizzando questa estensione accetti che:
 
-- **L'uso è a tuo completo rischio e pericolo.**
+- **L'uso è a tua discrezione e a tuo completo rischio e pericolo.**
 - **L'autore non è responsabile** per eventuali errori nell'inserimento dati, anomalie nella visualizzazione o malfunzionamenti del portale causati dall'estensione.
 - **È tua responsabilità** verificare che le richieste (ferie, permessi, presenze) siano state salvate correttamente dal sistema dopo l'inserimento.
 - In caso di aggiornamenti del portale aziendale, l'estensione potrebbe smettere di funzionare improvvisamente.

@@ -2,6 +2,7 @@
 
 // Salva le opzioni su chrome.storage
 const saveOptions = () => {
+    const bypassRestrictions = document.getElementById('bypass-restrictions').checked;
     const privacyMode = document.getElementById('privacy-mode').checked;
     const loginImprovements = document.getElementById('login-improvements').checked;
     const toastNotifications = document.getElementById('toast-notifications').checked;
@@ -9,6 +10,7 @@ const saveOptions = () => {
   
     chrome.storage.sync.set(
       { 
+        bypassRestrictions,
         privacyMode,
         loginImprovements,
         toastNotifications,
@@ -28,12 +30,14 @@ const saveOptions = () => {
 const restoreOptions = () => {
     chrome.storage.sync.get(
       { 
+        bypassRestrictions: false,
         privacyMode: false,
         loginImprovements: true,
         toastNotifications: true,
         thePlaceMode: true
       }, 
       (items) => {
+        document.getElementById('bypass-restrictions').checked = items.bypassRestrictions;
         document.getElementById('privacy-mode').checked = items.privacyMode;
         document.getElementById('login-improvements').checked = items.loginImprovements;
         document.getElementById('toast-notifications').checked = items.toastNotifications;
@@ -104,6 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Aggiungi listener per tutti gli input
-['privacy-mode', 'login-improvements', 'toast-notifications', 'the-place-mode'].forEach(id => {
+['bypass-restrictions', 'privacy-mode', 'login-improvements', 'toast-notifications', 'the-place-mode'].forEach(id => {
     document.getElementById(id).addEventListener('change', saveOptions);
 });

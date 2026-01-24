@@ -1,6 +1,7 @@
 (function() {
     // --- CONFIGURAZIONE CENTRALIZZATA ---
     let globalOptions = {
+        bypassRestrictions: false,
         privacyMode: false,
         loginImprovements: true,
         toastNotifications: true,
@@ -33,10 +34,8 @@
 
         // --- ASCOLTATORE PER GLI ALERT NATIVI ---
         document.addEventListener('abp-show-toast', (e) => {
-            if (!globalOptions.toastNotifications) return;
-
             if (window.aBetterPlace.UIManager && e.detail && e.detail.text) {
-                window.aBetterPlace.UIManager.showToast("Alert", e.detail.text, "#ffa500", 5000);
+                window.aBetterPlace.UIManager.showToast(e.detail.text);
             }
         });
 

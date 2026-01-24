@@ -19,6 +19,11 @@
 
     // --- PATCH 2: NATIVE ALERT TO TOAST ---
     const applyAlertPatch = () => {
+        if (typeof window.abpToastEnabled !== 'undefined' && window.abpToastEnabled === false) {
+            console.log("aBetterPlace: Patch Alert skippata.");
+            return;
+        }
+
         if (window.alertPatched) return;
 
         window.alert = function(message) {
