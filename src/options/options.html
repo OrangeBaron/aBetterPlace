@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Impostazioni a Better Place</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            width: 350px;
+            color: #333;
+        }
+        h2 { margin-top: 0; font-size: 18px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .option-group { margin: 15px 0; }
+        label { display: flex; align-items: flex-start; cursor: pointer; }
+        input[type="checkbox"] { margin-right: 10px; margin-top: 3px; }
+        .desc { font-size: 13px; color: #666; margin-top: 4px; line-height: 1.4; }
+        
+        .status { font-size: 12px; color: green; opacity: 0; transition: opacity 0.5s; }
+        
+        /* Footer */
+        .footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            height: 24px;
+        }
+
+        .github-link {
+            display: flex;
+            align-items: center;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        .github-link:hover {
+            opacity: 1;
+        }
+        .github-link svg {
+            width: 20px;
+            height: 20px;
+            fill: #333;
+        }
+
+        /* Aggiornamenti */
+        .update-box {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .update-msg {
+            font-size: 13px;
+            color: green;
+            margin-bottom: 8px;
+        }
+        .download-btn {
+            display: inline-block;
+            background-color: #26affb;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .download-btn:hover { background-color: #1a8ccb; }
+    </style>
+</head>
+<body>
+    <h2>Impostazioni</h2>
+    
+    <div class="option-group">
+        <label style="margin-bottom: 15px; color: #d32f2f;">
+            <input type="checkbox" id="bypass-restrictions">
+            <div>
+                <strong>Sblocco Totale</strong>
+                <div class="desc">
+                    Abilita l'inserimento delle richieste ignorando i controlli di assenza ingiustificata e associazione delle attività.
+                </div>
+            </div>
+        </label>
+
+        <label style="margin-bottom: 15px;">
+            <input type="checkbox" id="privacy-mode">
+            <div>
+                <strong>Modalità Privacy (network aziendale)</strong>
+                <div class="desc">
+                    Disabilita il caricamento di font e librerie da server esterni (CDN). Attiva questa opzione se sei su una rete chiusa o vuoi evitare connessioni verso internet.
+                </div>
+            </div>
+        </label>
+
+        <label style="margin-bottom: 15px;">
+            <input type="checkbox" id="login-improvements">
+            <div>
+                <strong>Migliorie Login</strong>
+                <div class="desc">
+                    Migliora la gestione dell'autenticazione (inserimento credenziali, chiusura sessioni). Disattiva se riscontri problemi di accesso.
+                </div>
+            </div>
+        </label>
+
+        <label style="margin-bottom: 15px;">
+            <input type="checkbox" id="toast-notifications">
+            <div>
+                <strong>Usa notifiche non invasive (toast)</strong>
+                <div class="desc">
+                    Sostituisce i popup bloccanti con notifiche a scomparsa in basso, evitando di dover cliccare "OK" ogni volta.
+                </div>
+            </div>
+        </label>
+
+        <label>
+            <input type="checkbox" id="the-place-mode">
+            <div>
+                <strong>Interfaccia mobile in stile "The Place"</strong>
+                <div class="desc">
+                    Sostituisce l'intestazione e i menu originali con quelli dell'app "The Place" per la navigazione da smartphone.
+                </div>
+            </div>
+        </label>
+    </div>
+
+    <div class="footer-row">
+        <div id="status" class="status">Impostazioni salvate.</div>
+        
+        <a href="https://github.com/OrangeBaron/aBetterPlace" target="_blank" class="github-link" title="Vai al repository">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+        </a>
+    </div>
+
+    <div id="update-area" class="update-box">
+        <div class="update-msg">
+            È disponibile una nuova versione: <strong id="new-version"></strong>
+        </div>
+        <a href="https://github.com/OrangeBaron/aBetterPlace/archive/refs/heads/main.zip" class="download-btn">
+            Scarica l'aggiornamento
+        </a>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html>

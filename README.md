@@ -15,7 +15,7 @@
 - Velocizza il caricamento della pagina reindirizzando le risorse lente/mancanti verso CDN ad alta velocità.
 - Previene il blocco della pagina intercettando gli errori di esecuzione negli script del portale.
 
-È possibile personalizzare il comportamento dell'estensione dalla pagina delle impostazioni del portale.
+È possibile personalizzare il comportamento dell'estensione sia dalla pagina delle impostazioni del portale, sia accedendo al pannello delle **Opzioni estensione** (tasto destro sull'icona di **a Better Place** > Opzioni).
 
 ## 🔮 Funzionalità future
 
