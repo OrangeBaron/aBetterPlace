@@ -4,7 +4,8 @@
 
 ## 🪄 Funzionalità
 
-- Sblocca l'inserimento delle richieste in caso di assenza ingiustificata e/o attività non associata.
+- Sblocca la navigazione e l'inserimento delle richieste in caso di assenza ingiustificata.
+- Permette di sbloccare l'inserimento delle richieste a prescindere dall'associazione delle attività.
 - Aggiunge due bottoni per passare comodamente al giorno precedente/successivo.
 - Sostituisce i popup bloccanti di notifica/errore/conferma con toast meno invasivi.
 - Rimuove le animazioni del pannello laterale e ripristina lo scorrimento della pagina alla sua chiusura.
