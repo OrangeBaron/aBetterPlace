@@ -9,6 +9,9 @@ window.aBetterPlace.SettingsInjector = {
         if (document.getElementById('abp-settings-panel')) return;
 
         this.injectPanel();
+        
+        // Avvia il controllo aggiornamenti
+        this.checkUpdates();
     },
 
     injectPanel: function() {
@@ -48,9 +51,13 @@ window.aBetterPlace.SettingsInjector = {
                         ${this.renderOption('thePlaceMode', 'Interfaccia mobile in stile "The Place"', 'Sostituisce l\'intestazione e i menu originali con quelli dell\'app "The Place" per la navigazione da smartphone.')}
                     </div>
 
-                    <div style="padding: 15px; text-align: right; border-top: 1px solid #c2cfd6; margin-top: 15px;">
-                        <a href="https://github.com/OrangeBaron/aBetterPlace" target="_blank" style="color:#0a3247; text-decoration:none; font-size:13px;">
-                            <i class="fa fa-github" aria-hidden="true"></i> Repository GitHub
+                    <div style="padding: 15px; border-top: 1px solid #c2cfd6; margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        
+                        <div id="abp-update-container" style="display:none; font-size: 13px;">
+                            </div>
+
+                        <a href="https://github.com/OrangeBaron/aBetterPlace" target="_blank" style="color:#0a3247; text-decoration:none; font-size:13px; display: flex; align-items: center; margin-left: auto;">
+                            <i class="fa fa-github" aria-hidden="true" style="margin-right: 5px;"></i> Repository GitHub
                         </a>
                     </div>
                 </div>
@@ -60,10 +67,8 @@ window.aBetterPlace.SettingsInjector = {
         // Inseriamo il pannello subito dopo quello delle notifiche
         if (notifichePanel && notifichePanel.parentNode === targetCol) {
             targetCol.insertBefore(panel, notifichePanel.nextSibling);
-            // Aggiungiamo un po' di margine se necessario
             panel.style.marginTop = "20px";
         } else {
-            // Altrimenti in fondo alla colonna
             targetCol.appendChild(panel);
         }
 
@@ -73,7 +78,6 @@ window.aBetterPlace.SettingsInjector = {
 
     renderOption: function(key, label, desc, color = null) {
         const styleColor = color ? `style="color:${color}"` : '';
-        // Usiamo classi standard Bootstrap
         return `
             <div class="row push-10-t" style="margin-bottom: 20px;">
                 <div class="col-sm-12">
@@ -89,7 +93,6 @@ window.aBetterPlace.SettingsInjector = {
     },
 
     bindOptions: function() {
-        // Valori di default
         const defaults = { 
             bypassRestrictions: false, 
             privacyMode: false, 
@@ -107,14 +110,76 @@ window.aBetterPlace.SettingsInjector = {
                     checkbox.addEventListener('change', (e) => {
                         const val = e.target.checked;
                         chrome.storage.sync.set({ [key]: val }, () => {
-                            // Feedback visivo (Toast)
                             if (window.aBetterPlace.UIManager) {
                                 window.aBetterPlace.UIManager.showToast('Impostazione salvata', '', '#4caf50', 2000);
+                            }
+                            // Se cambia la privacy mode, ricontrolla gli aggiornamenti
+                            if (key === 'privacyMode') {
+                                if (val) {
+                                    // Se attivata privacy, nascondi avviso
+                                    const container = document.getElementById('abp-update-container');
+                                    if(container) container.style.display = 'none';
+                                } else {
+                                    // Se disattivata privacy, controlla
+                                    this.checkUpdates();
+                                }
                             }
                         });
                     });
                 }
             });
         });
+    },
+
+    checkUpdates: function() {
+        // 1. Leggi impostazione privacy
+        chrome.storage.sync.get({ privacyMode: false }, async (items) => {
+            if (items.privacyMode) return;
+
+            const repoUrl = 'https://raw.githubusercontent.com/OrangeBaron/aBetterPlace/main/manifest.json';
+            
+            try {
+                const localVersion = chrome.runtime.getManifest().version;
+                
+                const response = await fetch(repoUrl);
+                if (!response.ok) return;
+                
+                const remoteManifest = await response.json();
+                const remoteVersion = remoteManifest.version;
+
+                // Usa la logica di confronto versioni di Updater se disponibile, altrimenti fallback locale
+                let isNewer = false;
+                if (window.aBetterPlace.Updater && typeof window.aBetterPlace.Updater.isNewer === 'function') {
+                    isNewer = window.aBetterPlace.Updater.isNewer(remoteVersion, localVersion);
+                } else {
+                    // Fallback semplice
+                    isNewer = remoteVersion !== localVersion; 
+                }
+
+                if (isNewer) {
+                    this.showUpdateUI(remoteVersion);
+                }
+
+            } catch (error) {
+                console.warn('aBetterPlace: Check aggiornamenti fallito', error);
+            }
+        });
+    },
+
+    showUpdateUI: function(version) {
+        const container = document.getElementById('abp-update-container');
+        if (!container) return;
+
+        container.style.display = 'block';
+        container.innerHTML = `
+            <div style="color: #28a745; font-weight: bold; margin-bottom: 2px;">
+                <i class="fa fa-arrow-circle-o-up"></i> Nuova versione disponibile: v${version}
+            </div>
+            <a href="https://github.com/OrangeBaron/aBetterPlace/archive/refs/heads/main.zip" 
+               target="_blank" 
+               style="color: #0a3247; text-decoration: underline; font-weight: normal;">
+               Scarica aggiornamento
+            </a>
+        `;
     }
 };
