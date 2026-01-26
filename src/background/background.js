@@ -66,6 +66,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                         "src/inject/updater.js",
                         "src/inject/modules/logo-handler.js",
                         "src/inject/modules/settings-injector.js",
+                        "src/inject/modules/flexibility-fix.js",
                         "src/inject/main.js"
                     ]
                 })

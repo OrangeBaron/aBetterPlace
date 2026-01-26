@@ -7,6 +7,7 @@
 - Sblocca la navigazione e l'inserimento delle richieste in caso di assenza ingiustificata.
 - Permette di sbloccare l'inserimento delle richieste a prescindere dall'associazione delle attività.
 - Aggiunge due bottoni per passare comodamente al giorno precedente/successivo.
+- Ricolloca le richieste della flessibilità oraria nella card corretta e calcola il saldo usato/rimanente.
 - Sostituisce i popup bloccanti di notifica/errore/conferma con toast meno invasivi.
 - Rimuove le animazioni del pannello laterale e ripristina lo scorrimento della pagina alla sua chiusura.
 - Preseleziona le caselle delle maggiorazioni proposte e la prima attività dall'elenco delle associazioni.
@@ -20,7 +21,7 @@
 
 ## 🔮 Funzionalità future
 
-- Calcolo della flessibilità oraria totale usata/rimanente.
+- Generale miglioramento delle prestazioni.
 
 ## 📦 Installazione
 

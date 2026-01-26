@@ -16,6 +16,7 @@
         if (window.aBetterPlace.LogoHandler) window.aBetterPlace.LogoHandler.process();
         if (window.aBetterPlace.BookmarkHandler) window.aBetterPlace.BookmarkHandler.process();
         if (window.aBetterPlace.SettingsInjector) window.aBetterPlace.SettingsInjector.init();
+        if (window.aBetterPlace.FlexibilityFixer) window.aBetterPlace.FlexibilityFixer.process();
 
         if (globalOptions.thePlaceMode && window.aBetterPlace.ThePlace) {
             window.aBetterPlace.ThePlace.init();
