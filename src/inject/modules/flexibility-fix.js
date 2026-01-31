@@ -2,7 +2,7 @@ window.aBetterPlace = window.aBetterPlace || {};
 
 window.aBetterPlace.FlexibilityFixer = {
     process: function() {
-        // --- 1. Trova la Card corretta ---
+        // --- 1. Trova la Card corretta (Destinazione) ---
         let targetBody = null;
         let targetTable = null;
         let container = null;
@@ -23,53 +23,91 @@ window.aBetterPlace.FlexibilityFixer = {
 
         if (!targetBody) return;
 
-        // --- 2. Gestione Righe ---
-        const candidates = document.querySelectorAll('tr[data-ecc-cod="FLH"]');
+        // --- 2. Raccolta Candidati (Sorgenti) ---
+        // A. Criterio standard: attributo FLH (funziona per gli "Esiti")
+        const standardCandidates = Array.from(document.querySelectorAll('tr[data-ecc-cod="FLH"]'));
+        
+        // B. Criterio testo: cerca nella tabella "Le mie richieste" (In attesa)
+        //    Nota: queste righe non hanno il codice FLH, quindi le cerchiamo per contenuto testo.
+        const pendingTable = document.getElementById('lemierichieste');
+        let pendingCandidates = [];
+        
+        if (pendingTable) {
+            const allPendingRows = Array.from(pendingTable.querySelectorAll('tr'));
+            pendingCandidates = allPendingRows.filter(row => {
+                const text = row.innerText || "";
+                // Escludiamo se ha già il codice (preso sopra) o se non contiene la parola chiave
+                return !row.hasAttribute('data-ecc-cod') && text.toUpperCase().includes('FLESSIBILITA ORARIA');
+            });
+        }
+
+        // Uniamo le due liste
+        const allCandidates = [...standardCandidates, ...pendingCandidates];
         let workDone = false;
 
-        if (candidates.length > 0) {
-            candidates.forEach(sourceRow => {
-                if (targetTable.contains(sourceRow)) return; // Già processato
+        if (allCandidates.length > 0) {
+            allCandidates.forEach(sourceRow => {
+                // Evita di processare se la riga è già nella tabella di destinazione
+                if (targetTable.contains(sourceRow)) return; 
 
-                const reqId = sourceRow.getAttribute('data-id-rich');
+                // Recupero ID univoco: le richieste in attesa usano 'data-richparent', le altre 'data-id-rich'
+                const reqId = sourceRow.getAttribute('data-id-rich') || sourceRow.getAttribute('data-richparent');
+                
                 if (!reqId) return;
 
                 // --- Analisi Dettaglio Sorgente ---
+                // Cerchiamo se c'è una riga di dettaglio subito sotto (spesso nascosta)
                 let sourceDetail = null;
                 const currentTbody = sourceRow.closest('tbody');
                 if (currentTbody) {
+                    // A volte il dettaglio è in un tbody successivo (struttura standard portale)
                     const nextTbody = currentTbody.nextElementSibling;
                     if (nextTbody && nextTbody.tagName === 'TBODY') {
                         const potentialDetail = nextTbody.querySelector('tr');
                         if (potentialDetail && !potentialDetail.hasAttribute('data-ecc-cod')) {
                             sourceDetail = potentialDetail;
                         }
+                    } else {
+                        // Nelle tabelle "pending" a volte il dettaglio è la riga successiva nello stesso tbody?
+                        // Per sicurezza controlliamo il nextElementSibling diretto
+                        const nextRow = sourceRow.nextElementSibling;
+                        if (nextRow && nextRow.style.display === 'none' && !nextRow.hasAttribute('data-ecc-cod')) {
+                            // euristica debole, ma tentiamo
+                            // sourceDetail = nextRow; 
+                        }
                     }
                 }
 
                 // --- Logica Sincronizzazione ---
+                // Cerchiamo se esiste già un clone nella destinazione con questo ID
                 const existingClone = targetBody.querySelector(`tr[data-id-rich="${reqId}"]`);
+                
                 const sourceIsVisible = sourceRow.style.display !== 'none';
                 const cloneIsMissing = !existingClone;
 
                 if (sourceIsVisible || cloneIsMissing) {
-                    // Pulizia vecchio clone
+                    // Pulizia vecchio clone (se esiste ma va aggiornato)
                     if (existingClone) {
                         const oldDetail = existingClone.nextElementSibling;
                         if (oldDetail && !oldDetail.hasAttribute('data-ecc-cod')) oldDetail.remove();
                         existingClone.remove();
                     }
 
-                    // Pulizia placeholder
+                    // Pulizia placeholder "Nessun dato" se presente
                     const placeholder = targetBody.querySelector('td[colspan="100"]');
                     if (placeholder) placeholder.closest('tr').remove();
 
-                    // Creazione nuovo clone
+                    // --- Creazione Clone ---
                     const newMain = sourceRow.cloneNode(true);
-                    newMain.style.display = ''; 
-                    targetBody.appendChild(newMain);
+                    
+                    // IMPORTANTE: Normalizziamo l'ID sul clone così i check futuri funzionano
+                    newMain.setAttribute('data-id-rich', reqId);
+                    
+                    newMain.style.display = ''; // Rendiamo visibile
                     newMain.style.cursor = 'pointer';
+                    targetBody.appendChild(newMain);
 
+                    // Gestione riga dettaglio (se trovata)
                     let newDetail = null;
                     if (sourceDetail) {
                         newDetail = sourceDetail.cloneNode(true);
@@ -79,11 +117,16 @@ window.aBetterPlace.FlexibilityFixer = {
                         sourceDetail.style.display = 'none'; 
                     }
 
+                    // Nascondiamo l'originale
                     sourceRow.style.display = 'none'; 
 
-                    // --- Fix Click ---
+                    // --- Fix Click per aprire dettaglio ---
+                    // Rimuoviamo gli eventi onclick originali che potrebbero rompere la pagina
                     newMain.removeAttribute('onclick');
+                    
+                    // Aggiungiamo il toggle manuale
                     newMain.addEventListener('click', function(e) {
+                        // Ignora click su bottoni o link interni
                         if (e.target.closest('a') || e.target.closest('.icon-trash') || (e.target.tagName === 'I' && e.target.className.includes('trash'))) return;
                         e.preventDefault();
                         e.stopPropagation();
@@ -122,7 +165,7 @@ window.aBetterPlace.FlexibilityFixer = {
         }
 
         if (workDone) {
-            console.log("aBetterPlace: Flessibilità sincronizzata.");
+            console.log("aBetterPlace: Flessibilità sincronizzata (incluse richieste in attesa).");
         }
     },
 
@@ -131,11 +174,18 @@ window.aBetterPlace.FlexibilityFixer = {
         const budgetMinutes = 600; // 10 Ore
         const timeRegex = /Dalle\s+(\d{1,2})[\.:](\d{2})\s+alle\s+(\d{1,2})[\.:](\d{2})/i;
 
-        const rows = table.querySelectorAll('tr[data-ecc-cod="FLH"]');
+        // Selezioniamo tutte le righe visibili nella tabella target
+        // Nota: ora le righe clonate da "In attesa" hanno data-id-rich ma potrebbero non avere data-ecc-cod="FLH"
+        // Quindi ci basiamo sul contenuto testo o sull'attributo normalizzato
+        const rows = Array.from(table.querySelectorAll('tr'));
         
         rows.forEach(row => {
             if (row.style.display === 'none') return;
+            
+            // Filtro di sicurezza: deve sembrare una flessibilità
             const text = row.innerText;
+            if (!text.toLowerCase().includes('flessibilita')) return;
+
             const match = text.match(timeRegex);
             if (match) {
                 const startH = parseInt(match[1], 10);
