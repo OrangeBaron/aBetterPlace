@@ -28,8 +28,17 @@ window.aBetterPlace.DialogHandler = {
                    window.getComputedStyle(btn).display !== 'none';
         });
 
-        // 0 o 1 bottone visibile
-        if (visibleButtons.length <= 1) {
+        // Controllo Eccezione: se il bottone contiene "invia", non lo nascondiamo
+        let isSendButton = false;
+        if (visibleButtons.length === 1) {
+            const btnText = visibleButtons[0].textContent || "";
+            if (btnText.toLowerCase().includes("invia")) {
+                isSendButton = true;
+            }
+        }
+
+        // 0 o 1 bottone visibile (TRANNE se è "invia")
+        if (visibleButtons.length <= 1 && !isSendButton) {
             
             const titleEl = swalModal.querySelector('#swal2-title');
             const contentEl = swalModal.querySelector('#swal2-content');
@@ -65,7 +74,7 @@ window.aBetterPlace.DialogHandler = {
             container.classList.remove('abp-allowed');
 
         } else {
-            // 2 o più bottoni
+            // 2 o più bottoni (oppure bottone "Invia") -> Mostra Popup
             container.classList.add('abp-allowed');
         }
     }
