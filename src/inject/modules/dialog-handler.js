@@ -19,8 +19,23 @@ window.aBetterPlace.DialogHandler = {
             return;
         }
 
-        // --- Analisi bottoni visibili ---
-        const allButtons = Array.from(swalModal.querySelectorAll('button.swal2-styled'));
+        // --- CONTROLLO 1: Ci sono campi di input visibili? ---
+        // Se c'è una textarea o un input visibile, è un form interattivo: NON toccare.
+        const interactives = Array.from(swalModal.querySelectorAll('textarea, input, select'));
+        const hasVisibleInput = interactives.some(el => {
+            return el.offsetParent !== null && // check visibilità standard
+                   el.type !== 'hidden' &&
+                   window.getComputedStyle(el).display !== 'none';
+        });
+
+        if (hasVisibleInput) {
+            container.classList.add('abp-allowed');
+            return;
+        }
+
+        // --- CONTROLLO 2: Analisi bottoni ---
+        // Selezioniamo TUTTI i button, esclusa la "X" di chiusura in alto a destra
+        const allButtons = Array.from(swalModal.querySelectorAll('button:not(.swal2-close)'));
         
         const visibleButtons = allButtons.filter(btn => {
             return btn.offsetWidth > 0 && 
@@ -28,35 +43,48 @@ window.aBetterPlace.DialogHandler = {
                    window.getComputedStyle(btn).display !== 'none';
         });
 
-        // Controllo Eccezione: se il bottone contiene "invia", non lo nascondiamo
-        let isSendButton = false;
+        // Controllo testo "Invia" / "Salva" / "Conferma"
+        let isImportantAction = false;
         if (visibleButtons.length === 1) {
-            const btnText = visibleButtons[0].textContent || "";
-            if (btnText.toLowerCase().includes("invia")) {
-                isSendButton = true;
+            const btnText = (visibleButtons[0].textContent || "").toLowerCase();
+            if (btnText.includes("invia") || btnText.includes("salva") || btnText.includes("conferma")) {
+                isImportantAction = true;
             }
         }
 
-        // 0 o 1 bottone visibile (TRANNE se è "invia")
-        if (visibleButtons.length <= 1 && !isSendButton) {
+        // Logica decisionale:
+        // Se c'è 0 o 1 bottone (e non è un'azione importante), converti in toast.
+        // Altrimenti (2+ bottoni O bottone "Invia"), mostra il popup.
+        if (visibleButtons.length <= 1 && !isImportantAction) {
             
             const titleEl = swalModal.querySelector('#swal2-title');
             const contentEl = swalModal.querySelector('#swal2-content');
             
-            const rawTitle = titleEl ? titleEl.textContent.trim() : '';
-            const rawContent = contentEl ? contentEl.textContent.trim() : '';
+            // Estrazione pulita del testo
+            const rawTitle = titleEl ? titleEl.innerText.trim() : '';
+            // Rimuoviamo eventuali tag script o style dal contenuto per sicurezza
+            let rawContent = '';
+            if (contentEl) {
+                const clone = contentEl.cloneNode(true);
+                // Rimuoviamo il bottone custom dal contenuto clonato per non leggere il testo "Invia" nel messaggio del toast
+                const internalBtns = clone.querySelectorAll('button');
+                internalBtns.forEach(b => b.remove());
+                rawContent = clone.innerText.trim();
+            }
 
-            // Se c'è il titolo ma non il contenuto
             let toastTitle = rawTitle;
             let toastMessage = rawContent;
 
-            if (rawTitle && !rawContent) {
+            // Se il titolo e il contenuto sono identici (capita spesso), mostriamo solo uno
+            if (toastTitle === toastMessage) {
+                toastMessage = "";
+            } else if (rawTitle && !rawContent) {
                 toastTitle = "";
                 toastMessage = rawTitle;
             }
 
-            // Determina colore
-            const isError = toastTitle.toLowerCase().includes('errore');
+            // Determina colore (Errore vs Info)
+            const isError = (toastTitle + toastMessage).toLowerCase().includes('errore');
             const titleColor = isError ? '#ff4444' : '#26affb';
 
             // Mostriamo il Toast
@@ -64,17 +92,20 @@ window.aBetterPlace.DialogHandler = {
                 window.aBetterPlace.UIManager.showToast(toastMessage, toastTitle, titleColor);
             }
 
-            // Clicchiamo il bottone di conferma
-            const confirmBtn = swalModal.querySelector('.swal2-confirm');
-            if (confirmBtn) {
-                confirmBtn.click();
+            // Clicchiamo l'unico bottone rimasto (es. "OK") se esiste, per chiudere la logica del portale
+            if (visibleButtons.length === 1) {
+                visibleButtons[0].click();
+            } else {
+                // Fallback: prova a cliccare il confirm standard anche se nascosto
+                const confirmBtn = swalModal.querySelector('.swal2-confirm');
+                if (confirmBtn) confirmBtn.click();
             }
             
             // Nascondiamo il container visivamente
             container.classList.remove('abp-allowed');
 
         } else {
-            // 2 o più bottoni (oppure bottone "Invia") -> Mostra Popup
+            // Caso Popup Importante: Mostra tutto
             container.classList.add('abp-allowed');
         }
     }
