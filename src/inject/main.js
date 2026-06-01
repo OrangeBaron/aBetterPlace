@@ -5,6 +5,7 @@
         privacyMode: false,
         loginImprovements: true,
         uiImprovements: true,
+        themeEngine: true,
         toastNotifications: true,
         thePlaceMode: true
     };
@@ -26,6 +27,7 @@
         if (window.aBetterPlace.DialogHandler) window.aBetterPlace.DialogHandler.process(globalOptions);
         if (window.aBetterPlace.LogoHandler) window.aBetterPlace.LogoHandler.process();
         if (window.aBetterPlace.SettingsInjector) window.aBetterPlace.SettingsInjector.init();
+        if (window.aBetterPlace.ThemeEngine) window.aBetterPlace.ThemeEngine.process(globalOptions);
 
         if (globalOptions.thePlaceMode && window.aBetterPlace.ThePlace) {
             window.aBetterPlace.ThePlace.init();

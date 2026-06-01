@@ -11,6 +11,7 @@
 - Sostituisce i popup bloccanti di notifica/errore/conferma con toast meno invasivi.
 - Rimuove le animazioni del pannello laterale e ripristina lo scorrimento della pagina alla sua chiusura.
 - Preseleziona le caselle delle maggiorazioni proposte e la prima attività dall'elenco delle associazioni.
+- Sostituisce il gestore dei temi corrotto del portale e permette di applicare temi personalizzati.
 - Applica un'interfaccia mobile-friendly ispirata all'app "The Place" per la navigazione da smartphone.
 - Ripara i collegamenti dei segnalibri nell'intestazione.
 - Migliora l'intera fase di accesso dall'inserimento delle credenziali alla chiusura delle sessioni attive.

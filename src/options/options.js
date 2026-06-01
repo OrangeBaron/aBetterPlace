@@ -6,6 +6,7 @@ const saveOptions = () => {
     const privacyMode = document.getElementById('privacy-mode').checked;
     const loginImprovements = document.getElementById('login-improvements').checked;
     const uiImprovements = document.getElementById('ui-improvements').checked;
+    const themeEngine = document.getElementById('theme-engine').checked;
     const toastNotifications = document.getElementById('toast-notifications').checked;
     const thePlaceMode = document.getElementById('the-place-mode').checked;
   
@@ -15,6 +16,7 @@ const saveOptions = () => {
         privacyMode,
         loginImprovements,
         uiImprovements,
+        themeEngine,
         toastNotifications,
         thePlaceMode
       },
@@ -36,6 +38,7 @@ const restoreOptions = () => {
         privacyMode: false,
         loginImprovements: true,
         uiImprovements: true,
+        themeEngine: true,
         toastNotifications: true,
         thePlaceMode: true
       }, 
@@ -44,6 +47,7 @@ const restoreOptions = () => {
         document.getElementById('privacy-mode').checked = items.privacyMode;
         document.getElementById('login-improvements').checked = items.loginImprovements;
         document.getElementById('ui-improvements').checked = items.uiImprovements;
+        document.getElementById('theme-engine').checked = items.themeEngine;
         document.getElementById('toast-notifications').checked = items.toastNotifications;
         document.getElementById('the-place-mode').checked = items.thePlaceMode;
       }
@@ -112,6 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Aggiungi listener per tutti gli input
-['bypass-restrictions', 'privacy-mode', 'login-improvements', 'ui-improvements', 'toast-notifications', 'the-place-mode'].forEach(id => {
+['bypass-restrictions', 'privacy-mode', 'login-improvements', 'ui-improvements', 'theme-engine', 'toast-notifications', 'the-place-mode'].forEach(id => {
     document.getElementById(id).addEventListener('change', saveOptions);
 });

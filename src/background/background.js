@@ -1,12 +1,48 @@
-chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.sync.get({ privacyMode: false }, (items) => {
-        const ruleId = 'network_rules';
-        if (items.privacyMode) {
-            chrome.declarativeNetRequest.updateEnabledRulesets({ disableRulesetIds: [ruleId] });
-        } else {
-            chrome.declarativeNetRequest.updateEnabledRulesets({ enableRulesetIds: [ruleId] });
-        }
+function updateThemeRule(themeEngineEnabled, customTheme) {
+    const ruleId = 999;
+
+    if (!themeEngineEnabled) {
+        return chrome.declarativeNetRequest.updateDynamicRules({ removeRuleIds: [ruleId] });
+    }
+
+    return chrome.declarativeNetRequest.updateDynamicRules({
+        removeRuleIds: [ruleId],
+        addRules: [{
+            id: ruleId,
+            priority: 100,
+            action: {
+                type: "redirect",
+                redirect: {
+                    regexSubstitution: "\\1" + customTheme + "\\2.css\\3"
+                }
+            },
+            condition: {
+                regexFilter: "^(.*\\/skins\\/(?:.*,DanaInfo=[^+\\s]+\\+)?)[a-zA-Z]+(V2)?\\.css(\\?.*)?$",
+                resourceTypes: ["stylesheet"]
+            }
+        }]
     });
+}
+
+chrome.storage.sync.get({ themeEngine: true, customTheme: 'blue' }, (items) => {
+    updateThemeRule(items.themeEngine, items.customTheme);
+});
+
+// --- ASCOLTATORE DI MESSAGGI PER IL TEMA ---
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "updateTheme") {
+        chrome.storage.sync.set({ customTheme: message.theme }, () => {
+            updateThemeRule(true, message.theme)
+                .then(() => {
+                    sendResponse({ status: "success" });
+                })
+                .catch((err) => {
+                    console.error("Errore aggiornamento DNR:", err);
+                    sendResponse({ status: "error" });
+                });
+        });
+        return true;
+    }
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
@@ -67,6 +103,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                         "src/inject/modules/logo-handler.js",
                         "src/inject/modules/settings-injector.js",
                         "src/inject/modules/flexibility-fix.js",
+                        "src/inject/modules/theme-engine.js",
                         "src/inject/main.js"
                     ]
                 })
@@ -115,16 +152,28 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 // Listener per aggiornare le regole di rete quando le opzioni cambiano
 chrome.storage.onChanged.addListener((changes, namespace) => {
-    if (namespace === 'sync' && changes.privacyMode) {
-        const ruleId = 'network_rules';
-        if (changes.privacyMode.newValue) {
-            // Privacy Mode ATTIVA: Disabilita regole
-            chrome.declarativeNetRequest.updateEnabledRulesets({ disableRulesetIds: [ruleId] });
-            console.log("Privacy Mode enabled: Ruleset disabled.");
-        } else {
-            // Privacy Mode DISATTIVA: Abilita regole
-            chrome.declarativeNetRequest.updateEnabledRulesets({ enableRulesetIds: [ruleId] });
-            console.log("Privacy Mode disabled: Ruleset enabled.");
+    if (namespace === 'sync') {
+        
+        // 1. GESTIONE PRIVACY MODE
+        if (changes.privacyMode) {
+            const ruleId = 'network_rules';
+            if (changes.privacyMode.newValue) {
+                // Privacy Mode ATTIVA: Disabilita regole
+                chrome.declarativeNetRequest.updateEnabledRulesets({ disableRulesetIds: [ruleId] });
+                console.log("Privacy Mode enabled: Ruleset disabled.");
+            } else {
+                // Privacy Mode DISATTIVA: Abilita regole
+                chrome.declarativeNetRequest.updateEnabledRulesets({ enableRulesetIds: [ruleId] });
+                console.log("Privacy Mode disabled: Ruleset enabled.");
+            }
+        }
+
+        // 2. GESTIONE THEME ENGINE
+        if (changes.themeEngine || changes.customTheme) {
+            chrome.storage.sync.get({ themeEngine: true, customTheme: 'blue' }, (items) => {
+                updateThemeRule(items.themeEngine, items.customTheme);
+                console.log("Theme Engine Network Rule updated:", items.customTheme);
+            });
         }
     }
 });
