@@ -4,32 +4,37 @@
         bypassRestrictions: false,
         privacyMode: false,
         loginImprovements: true,
+        uiImprovements: true,
         toastNotifications: true,
         thePlaceMode: true
     };
 
     const performUpdates = () => {
-        if (window.aBetterPlace.FormHandler) window.aBetterPlace.FormHandler.process();
-        if (window.aBetterPlace.DialogHandler) window.aBetterPlace.DialogHandler.process(globalOptions);
+        // --- MODULI VINCOLATI A "MIGLIORIE UI" ---
+        if (globalOptions.uiImprovements) {
+            if (window.aBetterPlace.FormHandler) window.aBetterPlace.FormHandler.process();
+            if (window.aBetterPlace.LayoutHandler) window.aBetterPlace.LayoutHandler.process();
+            if (window.aBetterPlace.BookmarkHandler) window.aBetterPlace.BookmarkHandler.process();
+            if (window.aBetterPlace.FlexibilityFixer) window.aBetterPlace.FlexibilityFixer.process();
+            
+            if (window.aBetterPlace.DateNav && !document.getElementById("better-nav-btns")) {
+                window.aBetterPlace.DateNav.init();
+            }
+        }
 
-        if (window.aBetterPlace.LayoutHandler) window.aBetterPlace.LayoutHandler.process();
+        // --- MODULI SEMPRE ATTIVI O CON TOGGLE PROPRIO ---
+        if (window.aBetterPlace.DialogHandler) window.aBetterPlace.DialogHandler.process(globalOptions);
         if (window.aBetterPlace.LogoHandler) window.aBetterPlace.LogoHandler.process();
-        if (window.aBetterPlace.BookmarkHandler) window.aBetterPlace.BookmarkHandler.process();
         if (window.aBetterPlace.SettingsInjector) window.aBetterPlace.SettingsInjector.init();
-        if (window.aBetterPlace.FlexibilityFixer) window.aBetterPlace.FlexibilityFixer.process();
 
         if (globalOptions.thePlaceMode && window.aBetterPlace.ThePlace) {
             window.aBetterPlace.ThePlace.init();
-        }
-
-        if (window.aBetterPlace.DateNav && !document.getElementById("better-nav-btns")) {
-            window.aBetterPlace.DateNav.init();
         }
     };
 
     const startSystem = () => {
         // 0. INIEZIONE STILI
-        if (window.aBetterPlace.StyleManager) {
+        if (globalOptions.uiImprovements && window.aBetterPlace.StyleManager) {
             window.aBetterPlace.StyleManager.init();
         }
 

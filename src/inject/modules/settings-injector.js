@@ -47,6 +47,7 @@ window.aBetterPlace.SettingsInjector = {
                         ${this.renderOption('bypassRestrictions', 'Sblocco Totale', 'Abilita l\'inserimento delle richieste ignorando i controlli di assenza ingiustificata e associazione delle attività.', '#d32f2f')}
                         ${this.renderOption('privacyMode', 'Modalità Privacy (network aziendale)', 'Disabilita il caricamento di font e librerie da server esterni (CDN). Attiva questa opzione se sei su una rete chiusa o vuoi evitare connessioni verso internet.')}
                         ${this.renderOption('loginImprovements', 'Migliorie Login', 'Migliora la gestione dell\'autenticazione (inserimento credenziali, chiusura sessioni). Disattiva se riscontri problemi di accesso.')}
+                        ${this.renderOption('uiImprovements', 'Migliorie Interfaccia Utente', 'Applica ottimizzazioni grafiche, nasconde elementi fastidiosi e aggiunge piccoli miglioramenti visivi.')}
                         ${this.renderOption('toastNotifications', 'Usa notifiche non invasive (toast)', 'Sostituisce i popup bloccanti con notifiche a scomparsa in basso, evitando di dover cliccare "OK" ogni volta.')}
                         ${this.renderOption('thePlaceMode', 'Interfaccia mobile in stile "The Place"', 'Sostituisce l\'intestazione e i menu originali con quelli dell\'app "The Place" per la navigazione da smartphone.')}
                     </div>
@@ -97,6 +98,7 @@ window.aBetterPlace.SettingsInjector = {
             bypassRestrictions: false, 
             privacyMode: false, 
             loginImprovements: true, 
+            uiImprovements: true,
             toastNotifications: true, 
             thePlaceMode: true 
         };

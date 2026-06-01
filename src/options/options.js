@@ -5,6 +5,7 @@ const saveOptions = () => {
     const bypassRestrictions = document.getElementById('bypass-restrictions').checked;
     const privacyMode = document.getElementById('privacy-mode').checked;
     const loginImprovements = document.getElementById('login-improvements').checked;
+    const uiImprovements = document.getElementById('ui-improvements').checked;
     const toastNotifications = document.getElementById('toast-notifications').checked;
     const thePlaceMode = document.getElementById('the-place-mode').checked;
   
@@ -13,6 +14,7 @@ const saveOptions = () => {
         bypassRestrictions,
         privacyMode,
         loginImprovements,
+        uiImprovements,
         toastNotifications,
         thePlaceMode
       },
@@ -33,6 +35,7 @@ const restoreOptions = () => {
         bypassRestrictions: false,
         privacyMode: false,
         loginImprovements: true,
+        uiImprovements: true,
         toastNotifications: true,
         thePlaceMode: true
       }, 
@@ -40,6 +43,7 @@ const restoreOptions = () => {
         document.getElementById('bypass-restrictions').checked = items.bypassRestrictions;
         document.getElementById('privacy-mode').checked = items.privacyMode;
         document.getElementById('login-improvements').checked = items.loginImprovements;
+        document.getElementById('ui-improvements').checked = items.uiImprovements;
         document.getElementById('toast-notifications').checked = items.toastNotifications;
         document.getElementById('the-place-mode').checked = items.thePlaceMode;
       }
@@ -108,6 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Aggiungi listener per tutti gli input
-['bypass-restrictions', 'privacy-mode', 'login-improvements', 'toast-notifications', 'the-place-mode'].forEach(id => {
+['bypass-restrictions', 'privacy-mode', 'login-improvements', 'ui-improvements', 'toast-notifications', 'the-place-mode'].forEach(id => {
     document.getElementById(id).addEventListener('change', saveOptions);
 });
